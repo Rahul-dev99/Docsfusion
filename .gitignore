@@ -1,0 +1,28 @@
+# Node modules
+node_modules/
+
+# Logs
+logs/
+*.log
+
+# Environment files
+.env
+.env.local
+
+# Build output
+dist/
+build/
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# VS Code workspace settings
+.vscode/settings.json
+
+# Temporary files
+tmp/
+temp/
+
+# Coverage
+coverage/
