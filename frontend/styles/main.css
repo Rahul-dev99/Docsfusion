@@ -1,0 +1,56 @@
+/* =========================================
+   DocsFusion Design System
+========================================= */
+
+:root{
+
+    --primary:#2563EB;
+
+    --secondary:#0F172A;
+
+    --background:#F8FAFC;
+
+    --white:#FFFFFF;
+
+    --success:#22C55E;
+
+    --warning:#F59E0B;
+
+    --danger:#EF4444;
+
+    --text:#1E293B;
+
+    --radius:12px;
+
+    --shadow:
+        0 8px 24px rgba(0,0,0,.08);
+
+}
+
+/* =========================================
+   Reset
+========================================= */
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+}
+
+/* =========================================
+   Body
+========================================= */
+
+body{
+
+    font-family:"Inter",sans-serif;
+
+    background:var(--background);
+
+    color:var(--text);
+
+}
