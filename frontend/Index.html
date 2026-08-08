@@ -77,7 +77,74 @@
         </button>
 
     </section>
+<section class="upload-section" aria-labelledby="upload-title">
 
+    <div class="upload-container">
+
+        <div class="upload-header">
+
+            <h2 id="upload-title">
+                Upload your documents
+            </h2>
+
+            <p>
+                Drag and drop your files here, or browse from your device.
+            </p>
+
+        </div>
+
+        <div
+            class="upload-dropzone"
+            id="upload-dropzone"
+            tabindex="0"
+            role="button"
+            aria-label="Upload documents"
+        >
+
+            <div class="upload-icon" aria-hidden="true">
+                ↑
+            </div>
+
+            <h3>
+               Drag &amp; drop your files here
+            </h3>
+
+            <p>
+                or
+            </p>
+
+            <button
+                type="button"
+                class="upload-button"
+                id="browse-files-button"
+            >
+                Browse Files
+            </button>
+
+            <p class="upload-supported">
+                PDF, JPG, PNG, DOCX and XLSX
+            </p>
+
+            <input
+                type="file"
+                id="file-input"
+                class="file-input"
+                multiple
+                accept=".pdf,.jpg,.jpeg,.png,.docx,.xlsx,.xls"
+            >
+
+        </div>
+
+        <div
+            class="upload-message"
+            id="upload-message"
+            role="status"
+            aria-live="polite"
+        ></div>
+
+    </div>
+
+</section>
 </main>
 
 
