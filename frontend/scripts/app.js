@@ -12,6 +12,11 @@ const browseFilesButton = document.getElementById("browse-files-button");
 const uploadDropzone = document.getElementById("upload-dropzone");
 const uploadMessage = document.getElementById("upload-message");
 const selectedFilesContainer = document.getElementById("selected-files");
+const mobileMenuButton =
+    document.getElementById("mobile-menu-button");
+
+const mainNavigation =
+    document.getElementById("main-navigation");
 
 // ==========================================
 // APPLICATION STATE
@@ -312,5 +317,27 @@ uploadDropzone.addEventListener("drop", (event) => {
     }
 
     processFiles(droppedFiles);
+
+});
+// ==========================================
+// MOBILE NAVIGATION
+// ==========================================
+
+mobileMenuButton.addEventListener("click", () => {
+
+    const isOpen =
+        mainNavigation.classList.toggle("is-open");
+
+    mobileMenuButton.setAttribute(
+        "aria-expanded",
+        String(isOpen)
+    );
+
+    mobileMenuButton.setAttribute(
+        "aria-label",
+        isOpen
+            ? "Close navigation menu"
+            : "Open navigation menu"
+    );
 
 });

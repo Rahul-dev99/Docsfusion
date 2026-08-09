@@ -404,3 +404,138 @@
     outline-offset: 2px;
 
 }
+/* ==========================================
+   MOBILE MENU BUTTON
+========================================== */
+
+.mobile-menu-button {
+
+    display: none;
+
+}
+/* ==========================================
+   MOBILE NAVIGATION
+========================================== */
+
+@media (max-width: 600px) {
+
+    .header {
+
+        position: relative;
+
+        padding: 14px 18px;
+
+    }
+
+    .logo {
+
+        font-size: 20px;
+
+    }
+
+    .mobile-menu-button {
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        width: 42px;
+
+        height: 42px;
+
+        border: 1px solid #E2E8F0;
+
+        border-radius: 10px;
+
+        background: var(--white);
+
+        color: var(--secondary);
+
+        font-size: 22px;
+
+        cursor: pointer;
+
+    }
+
+    .navigation {
+
+        display: none;
+
+        position: absolute;
+
+        top: calc(100% + 1px);
+
+        left: 0;
+
+        right: 0;
+
+        z-index: 100;
+
+        flex-direction: column;
+
+        gap: 0;
+
+        padding: 8px 18px 14px;
+
+        background: var(--white);
+
+        border-top: 1px solid #E2E8F0;
+
+        box-shadow: var(--shadow);
+
+    }
+
+    .navigation.is-open {
+
+        display: flex;
+
+    }
+
+    .navigation a {
+
+        padding: 12px 4px;
+
+    }
+
+}
+/* --------------------------------------
+   MOBILE HERO
+-------------------------------------- */
+
+.hero {
+
+    margin: 24px auto 14px;
+
+    padding: 8px 18px;
+
+}
+
+.hero h1 {
+
+    font-size: 34px;
+
+    line-height: 1.12;
+
+    margin-bottom: 12px;
+
+}
+
+.hero p {
+
+    font-size: 15px;
+
+    line-height: 1.45;
+
+    margin-bottom: 18px;
+
+}
+
+.primary-btn {
+
+    padding: 12px 24px;
+
+    font-size: 15px;
+
+}
