@@ -10,13 +10,21 @@
 const fileInput = document.getElementById("file-input");
 const browseFilesButton = document.getElementById("browse-files-button");
 const uploadDropzone = document.getElementById("upload-dropzone");
-const uploadMessage = document.getElementById("upload-message");
 const selectedFilesContainer = document.getElementById("selected-files");
 const mobileMenuButton =
     document.getElementById("mobile-menu-button");
 
 const mainNavigation =
     document.getElementById("main-navigation");
+const workspaceSummary =
+    document.getElementById("workspace-summary");
+const workspaceActions =
+    document.getElementById("workspace-actions");
+
+const clearAllButton =
+    document.getElementById("clear-all-button");
+const notification =
+    document.getElementById("notification");
 
 // ==========================================
 // APPLICATION STATE
@@ -30,11 +38,17 @@ let selectedFiles = [];
 
 const allowedFileTypes = [
     "application/pdf",
+
     "image/jpeg",
     "image/png",
+
     "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+
     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-    "application/vnd.ms-excel"
+    "application/vnd.ms-excel",
+
+    "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+    "application/vnd.ms-powerpoint"
 ];
 
 // 50 MB for now.
@@ -61,7 +75,8 @@ function validateFile(file) {
 
         return {
             valid: false,
-            message: `${file.name} is not a supported file type.`
+            message:
+    `${file.name} can't be added. This file type isn't supported.`
         };
 
     }
@@ -70,7 +85,8 @@ function validateFile(file) {
 
         return {
             valid: false,
-            message: `${file.name} is larger than the 50 MB limit.`
+            message:
+    `${file.name} can't be added because it is larger than 50 MB.`
         };
 
     }
@@ -108,6 +124,45 @@ function formatFileSize(bytes) {
     return `${size.toFixed(unitIndex === 0 ? 0 : 1)} ${units[unitIndex]}`;
 
 }
+function getFileTypeBadge(fileName) {
+
+    const extension =
+        fileName
+            .split(".")
+            .pop()
+            .toLowerCase();
+
+    const badges = {
+
+        pdf: "PDF",
+
+        doc: "DOC",
+        docx: "DOC",
+
+        xls: "XLS",
+        xlsx: "XLS",
+
+        ppt: "PPT",
+        pptx: "PPT",
+
+        jpg: "IMG",
+        jpeg: "IMG",
+        png: "IMG",
+        webp: "IMG",
+
+    };
+
+    return badges[extension] || "FILE";
+
+}
+function calculateTotalSize() {
+
+    return selectedFiles.reduce(
+        (total, file) => total + file.size,
+        0
+    );
+
+}
 
 // ==========================================
 // DISPLAY FILES
@@ -125,7 +180,8 @@ function renderSelectedFiles() {
         const fileIcon = document.createElement("div");
         fileIcon.className = "file-icon";
         fileIcon.setAttribute("aria-hidden", "true");
-        fileIcon.textContent = "📄";
+        fileIcon.textContent =
+    getFileTypeBadge(file.name);
 
         const fileDetails = document.createElement("div");
         fileDetails.className = "file-details";
@@ -160,12 +216,68 @@ function renderSelectedFiles() {
 
     });
 
-    uploadMessage.textContent =
-        selectedFiles.length > 0
-            ? `${selectedFiles.length} file(s) selected.`
-            : "";
-}
+   if (selectedFiles.length > 0) {
 
+    const totalSize =
+        calculateTotalSize();
+
+    workspaceSummary.textContent =
+        `${selectedFiles.length} ${
+            selectedFiles.length === 1
+                ? "file"
+                : "files"
+        } • ${formatFileSize(totalSize)}`;
+
+    workspaceSummary.classList.add("is-visible");
+
+    workspaceActions.classList.add("is-visible");
+
+    
+} else {
+
+    workspaceSummary.textContent = "";
+
+    workspaceSummary.classList.remove("is-visible");
+
+    workspaceActions.classList.remove("is-visible");
+
+    
+
+}
+}
+// ==========================================
+// NOTIFICATIONS
+// ==========================================
+
+function showNotification(
+    message,
+    type = "warning"
+) {
+
+    const icons = {
+        warning: "⚠",
+        error: "✕",
+        success: "✓"
+    };
+
+    notification.innerHTML = "";
+
+    const icon = document.createElement("span");
+    icon.className = "notification-icon";
+    icon.setAttribute("aria-hidden", "true");
+    icon.textContent = icons[type] || icons.warning;
+
+    const content = document.createElement("div");
+    content.className = "notification-content";
+    content.textContent = message;
+
+    notification.appendChild(icon);
+    notification.appendChild(content);
+
+    notification.className =
+        `notification ${type} is-visible`;
+
+}
 // ==========================================
 // PROCESS SELECTED FILES
 // ==========================================
@@ -198,7 +310,9 @@ function processFiles(files) {
 
         if (duplicate) {
 
-            errors.push(`${file.name} is already selected.`);
+            errors.push(
+    `${file.name} is already selected.`
+);
 
             return;
 
@@ -210,13 +324,20 @@ function processFiles(files) {
 
     selectedFiles.push(...validFiles);
 
-    renderSelectedFiles();
+renderSelectedFiles();
 
-    if (errors.length > 0) {
+if (errors.length > 0) {
 
-        uploadMessage.textContent = errors.join(" ");
+    showNotification(
+        errors.join(" "),
+        "warning"
+    );
 
-    }
+} else if (validFiles.length > 0) {
+
+    notification.classList.remove("is-visible");
+
+}
 
 }
 
@@ -339,5 +460,18 @@ mobileMenuButton.addEventListener("click", () => {
             ? "Close navigation menu"
             : "Open navigation menu"
     );
+
+});
+// ==========================================
+// CLEAR ALL FILES
+// ==========================================
+
+clearAllButton.addEventListener("click", () => {
+
+    selectedFiles = [];
+
+    fileInput.value = "";
+
+    renderSelectedFiles();
 
 });

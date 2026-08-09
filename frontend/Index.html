@@ -142,23 +142,52 @@
                 id="file-input"
                 class="file-input"
                 multiple
-                accept=".pdf,.jpg,.jpeg,.png,.docx,.xlsx,.xls"
+                accept=".pdf,.jpg,.jpeg,.png,.doc,.docx,.xls,.xlsx,.ppt,.pptx"
             >
 
         </div>
 
-        <div
-    class="upload-message"
-    id="upload-message"
+       <div
+    class="notification"
+    id="notification"
     role="status"
     aria-live="polite"
-></div>
+    aria-atomic="true"
+>
+</div>
+
+<div
+    class="notification"
+    id="notification"
+    role="status"
+    aria-live="polite"
+    aria-atomic="true"
+>
+</div>
 
 <div
     class="selected-files"
     id="selected-files"
     aria-label="Selected files"
+></div>
+
+<div
+    class="workspace-summary"
+    id="workspace-summary"
+    aria-live="polite"
 >
+</div>
+<div
+    class="workspace-actions"
+    id="workspace-actions"
+>
+    <button
+        type="button"
+        class="clear-all-button"
+        id="clear-all-button"
+    >
+        Clear All
+    </button>
 </div>
 
     </div>
