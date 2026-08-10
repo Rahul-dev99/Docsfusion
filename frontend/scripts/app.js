@@ -31,6 +31,7 @@ const notification =
 // ==========================================
 
 let selectedFiles = [];
+let draggedFileIndex = null;
 
 // ==========================================
 // FILE CONFIGURATION
@@ -175,7 +176,113 @@ function renderSelectedFiles() {
     selectedFiles.forEach((file, index) => {
 
         const fileCard = document.createElement("div");
+
         fileCard.className = "file-card";
+
+        fileCard.draggable = true;
+
+        fileCard.dataset.fileIndex = index;
+        fileCard.addEventListener("dragstart", (event) => {
+
+    draggedFileIndex = index;
+
+    fileCard.classList.add("is-dragging");
+
+    event.dataTransfer.effectAllowed = "move";
+
+});
+
+fileCard.addEventListener("dragend", () => {
+
+    draggedFileIndex = null;
+
+    fileCard.classList.remove("is-dragging");
+
+});
+fileCard.addEventListener("dragover", (event) => {
+
+    event.preventDefault();
+
+    if (draggedFileIndex === null) {
+        return;
+    }
+
+    if (draggedFileIndex === index) {
+        return;
+    }
+
+    event.dataTransfer.dropEffect = "move";
+
+    fileCard.classList.add("is-drag-over");
+
+});
+
+fileCard.addEventListener("dragleave", () => {
+
+    fileCard.classList.remove("is-drag-over");
+
+});
+
+fileCard.addEventListener("drop", (event) => {
+
+    event.preventDefault();
+
+    fileCard.classList.remove("is-drag-over");
+
+    if (draggedFileIndex === null) {
+        return;
+    }
+
+    if (draggedFileIndex === index) {
+        return;
+    }
+
+    const draggedFile =
+        selectedFiles[draggedFileIndex];
+
+    selectedFiles.splice(
+        draggedFileIndex,
+        1
+    );
+
+    const targetRect =
+        fileCard.getBoundingClientRect();
+
+    const dropAfter =
+        event.clientY >
+        targetRect.top + targetRect.height / 2;
+
+    let newIndex = index;
+
+    if (draggedFileIndex < index) {
+        newIndex--;
+    }
+
+    if (dropAfter) {
+        newIndex++;
+    }
+
+    selectedFiles.splice(
+        newIndex,
+        0,
+        draggedFile
+    );
+
+    draggedFileIndex = null;
+
+    renderSelectedFiles();
+
+});
+        const dragHandle = document.createElement("span");
+
+dragHandle.className = "drag-handle";
+
+dragHandle.setAttribute(
+    "aria-hidden",
+    "true"
+);
+
+dragHandle.textContent = "⋮⋮";
 
         const fileIcon = document.createElement("div");
         fileIcon.className = "file-icon";
@@ -208,6 +315,7 @@ function renderSelectedFiles() {
         fileDetails.appendChild(fileName);
         fileDetails.appendChild(fileSize);
 
+        fileCard.appendChild(dragHandle);
         fileCard.appendChild(fileIcon);
         fileCard.appendChild(fileDetails);
         fileCard.appendChild(removeButton);
