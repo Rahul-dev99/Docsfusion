@@ -2,7 +2,7 @@
  * DocsFusion
  * Main application entry point
  */
-
+import { PDFDocument } from "pdf-lib";
 // ==========================================
 // DOM ELEMENTS
 // ==========================================
@@ -182,7 +182,19 @@ function renderSelectedFiles() {
         fileCard.draggable = true;
 
         fileCard.dataset.fileIndex = index;
-        fileCard.addEventListener("dragstart", (event) => {
+     
+        const dragHandle = document.createElement("span");
+        dragHandle.className = "drag-handle";
+
+dragHandle.setAttribute(
+    "aria-hidden",
+    "true"
+);
+
+dragHandle.textContent = "⋮⋮";
+
+dragHandle.draggable = true;
+        dragHandle.addEventListener("dragstart", (event) => {
 
     draggedFileIndex = index;
 
@@ -192,7 +204,7 @@ function renderSelectedFiles() {
 
 });
 
-fileCard.addEventListener("dragend", () => {
+dragHandle.addEventListener("dragend", () => {
 
     draggedFileIndex = null;
 
@@ -273,17 +285,7 @@ fileCard.addEventListener("drop", (event) => {
     renderSelectedFiles();
 
 });
-        const dragHandle = document.createElement("span");
-
-dragHandle.className = "drag-handle";
-
-dragHandle.setAttribute(
-    "aria-hidden",
-    "true"
-);
-
-dragHandle.textContent = "⋮⋮";
-
+      
         const fileIcon = document.createElement("div");
         fileIcon.className = "file-icon";
         fileIcon.setAttribute("aria-hidden", "true");
@@ -390,7 +392,7 @@ function showNotification(
 // PROCESS SELECTED FILES
 // ==========================================
 
-function processFiles(files) {
+async function processFiles(files) {
 
     const filesToAdd = Array.from(files);
 
@@ -448,7 +450,15 @@ if (errors.length > 0) {
 }
 
 }
+async function getPdfPageCount(file) {
 
+    const arrayBuffer = await file.arrayBuffer();
+
+    const pdfDoc = await PDFDocument.load(arrayBuffer);
+
+    return pdfDoc.getPageCount();
+
+}
 // ==========================================
 // REMOVE FILE
 // ==========================================

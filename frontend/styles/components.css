@@ -774,3 +774,28 @@
     border-color: #2563EB;
 
 }
+/* ==========================================
+   MOBILE FILE REORDERING
+========================================== */
+
+@media (max-width: 480px) {
+
+    .drag-handle {
+
+        width: 28px;
+
+        min-width: 28px;
+
+        cursor: grab;
+
+        touch-action: none;
+
+    }
+
+    .drag-handle:active {
+
+        cursor: grabbing;
+
+    }
+
+}
