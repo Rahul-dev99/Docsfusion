@@ -33,6 +33,10 @@ const notification =
 let selectedFiles = [];
 let draggedFileIndex = null;
 
+let pointerDragging = false;
+let pointerDragStartX = 0;
+let pointerDragStartY = 0;
+let dragPreview = null;
 // ==========================================
 // FILE CONFIGURATION
 // ==========================================
@@ -182,178 +186,655 @@ function renderSelectedFiles() {
         fileCard.draggable = true;
 
         fileCard.dataset.fileIndex = index;
-     
-        const dragHandle = document.createElement("span");
+
+
+        // ==========================================
+        // DRAG HANDLE
+        // ==========================================
+
+        const dragHandle =
+            document.createElement("span");
+
         dragHandle.className = "drag-handle";
 
-dragHandle.setAttribute(
-    "aria-hidden",
-    "true"
+        dragHandle.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+        dragHandle.textContent = "⋮⋮";
+
+        dragHandle.draggable = false;
+
+
+        // ==========================================
+        // DESKTOP DRAG - WHOLE CARD
+        // ==========================================
+
+        fileCard.addEventListener(
+    "dragstart",
+    (event) => {
+
+        if (window.innerWidth <= 480) {
+            event.preventDefault();
+            return;
+        }
+
+        draggedFileIndex = index;
+
+        fileCard.classList.add(
+            "is-dragging"
+        );
+
+        event.dataTransfer.effectAllowed =
+            "move";
+
+    }
 );
 
-dragHandle.textContent = "⋮⋮";
+        fileCard.addEventListener(
+            "dragend",
+            () => {
 
-dragHandle.draggable = true;
-        dragHandle.addEventListener("dragstart", (event) => {
+                draggedFileIndex = null;
 
-    draggedFileIndex = index;
+                fileCard.classList.remove(
+                    "is-dragging"
+                );
 
-    fileCard.classList.add("is-dragging");
+                fileCard.classList.remove(
+                    "is-drag-over"
+                );
 
-    event.dataTransfer.effectAllowed = "move";
+            }
+        );
 
-});
 
-dragHandle.addEventListener("dragend", () => {
+        // ==========================================
+        // DESKTOP DROP TARGET
+        // ==========================================
 
-    draggedFileIndex = null;
+        fileCard.addEventListener(
+            "dragover",
+            (event) => {
 
-    fileCard.classList.remove("is-dragging");
+                event.preventDefault();
 
-});
-fileCard.addEventListener("dragover", (event) => {
+                if (
+                    draggedFileIndex === null
+                ) {
+                    return;
+                }
 
-    event.preventDefault();
+                if (
+                    draggedFileIndex === index
+                ) {
+                    return;
+                }
 
-    if (draggedFileIndex === null) {
-        return;
-    }
+                event.dataTransfer.dropEffect =
+                    "move";
 
-    if (draggedFileIndex === index) {
-        return;
-    }
+                fileCard.classList.add(
+                    "is-drag-over"
+                );
 
-    event.dataTransfer.dropEffect = "move";
+            }
+        );
 
-    fileCard.classList.add("is-drag-over");
 
-});
+        fileCard.addEventListener(
+            "dragleave",
+            () => {
 
-fileCard.addEventListener("dragleave", () => {
+                fileCard.classList.remove(
+                    "is-drag-over"
+                );
 
-    fileCard.classList.remove("is-drag-over");
+            }
+        );
 
-});
 
-fileCard.addEventListener("drop", (event) => {
+        fileCard.addEventListener(
+            "drop",
+            (event) => {
 
-    event.preventDefault();
+                event.preventDefault();
 
-    fileCard.classList.remove("is-drag-over");
+                fileCard.classList.remove(
+                    "is-drag-over"
+                );
 
-    if (draggedFileIndex === null) {
-        return;
-    }
+                if (
+                    draggedFileIndex === null
+                ) {
+                    return;
+                }
 
-    if (draggedFileIndex === index) {
-        return;
-    }
+                if (
+                    draggedFileIndex === index
+                ) {
 
-    const draggedFile =
-        selectedFiles[draggedFileIndex];
+                    draggedFileIndex = null;
 
-    selectedFiles.splice(
-        draggedFileIndex,
-        1
-    );
+                    fileCard.classList.remove(
+                        "is-dragging"
+                    );
 
-    const targetRect =
-        fileCard.getBoundingClientRect();
+                    return;
+                }
 
-    const dropAfter =
-        event.clientY >
-        targetRect.top + targetRect.height / 2;
 
-    let newIndex = index;
+                const draggedFile =
+                    selectedFiles[
+                        draggedFileIndex
+                    ];
 
-    if (draggedFileIndex < index) {
-        newIndex--;
-    }
 
-    if (dropAfter) {
-        newIndex++;
-    }
+                selectedFiles.splice(
+                    draggedFileIndex,
+                    1
+                );
 
-    selectedFiles.splice(
-        newIndex,
-        0,
-        draggedFile
-    );
 
-    draggedFileIndex = null;
+                const targetRect =
+                    fileCard.getBoundingClientRect();
 
-    renderSelectedFiles();
 
-});
-      
-        const fileIcon = document.createElement("div");
-        fileIcon.className = "file-icon";
-        fileIcon.setAttribute("aria-hidden", "true");
+                const dropAfter =
+                    event.clientY >
+                    targetRect.top +
+                    targetRect.height / 2;
+
+
+                let newIndex = index;
+
+
+                if (
+                    draggedFileIndex < index
+                ) {
+
+                    newIndex--;
+
+                }
+
+
+                if (dropAfter) {
+
+                    newIndex++;
+
+                }
+
+
+                selectedFiles.splice(
+                    newIndex,
+                    0,
+                    draggedFile
+                );
+
+
+                draggedFileIndex = null;
+
+
+                fileCard.classList.remove(
+                    "is-dragging"
+                );
+
+                fileCard.classList.remove(
+                    "is-drag-over"
+                );
+
+
+                renderSelectedFiles();
+
+            }
+        );
+
+
+        // ==========================================
+        // MOBILE POINTER DRAG
+        // ==========================================
+
+        dragHandle.addEventListener(
+            "pointerdown",
+            (event) => {
+
+                if (window.innerWidth > 480) {
+                    return;
+                }
+
+                event.preventDefault();
+
+                pointerDragging = true;
+
+                draggedFileIndex = index;
+
+                pointerDragStartX =
+                    event.clientX;
+
+                pointerDragStartY =
+                    event.clientY;
+
+
+                fileCard.classList.add(
+                    "is-dragging"
+                );
+
+
+                // Create floating preview
+
+                dragPreview =
+                    fileCard.cloneNode(true);
+
+
+                dragPreview.classList.remove(
+                    "is-dragging"
+                );
+
+                dragPreview.classList.remove(
+                    "is-drag-over"
+                );
+
+
+                dragPreview.style.position =
+                    "fixed";
+
+                dragPreview.style.zIndex =
+                    "9999";
+
+                dragPreview.style.pointerEvents =
+                    "none";
+
+                dragPreview.style.width =
+                    `${fileCard.getBoundingClientRect().width}px`;
+
+                dragPreview.style.boxShadow =
+                    "0 10px 24px rgba(15, 23, 42, 0.22)";
+
+                dragPreview.style.opacity =
+                    "0.95";
+
+                dragPreview.style.transform =
+                    "scale(1.02)";
+
+
+                const rect =
+                    fileCard.getBoundingClientRect();
+
+
+                dragPreview.style.left =
+                    `${rect.left}px`;
+
+                dragPreview.style.top =
+                    `${rect.top}px`;
+
+
+                document.body.appendChild(
+                    dragPreview
+                );
+
+
+                dragHandle.setPointerCapture(
+                    event.pointerId
+                );
+
+            }
+        );
+
+
+        dragHandle.addEventListener(
+            "pointermove",
+            (event) => {
+
+                if (
+                    !pointerDragging ||
+                    !dragPreview
+                ) {
+                    return;
+                }
+
+                event.preventDefault();
+
+
+                const previewRect =
+                    dragPreview.getBoundingClientRect();
+
+
+                dragPreview.style.left =
+                    `${event.clientX - previewRect.width / 2}px`;
+
+                dragPreview.style.top =
+                    `${event.clientY - previewRect.height / 2}px`;
+
+            }
+        );
+
+
+        dragHandle.addEventListener(
+            "pointerup",
+            (event) => {
+
+                if (!pointerDragging) {
+                    return;
+                }
+
+                event.preventDefault();
+
+                pointerDragging = false;
+
+                fileCard.classList.remove(
+                    "is-dragging"
+                );
+
+
+                const cleanupPreview = () => {
+
+                    if (dragPreview) {
+
+                        dragPreview.remove();
+
+                        dragPreview = null;
+
+                    }
+
+                };
+
+
+                if (
+                    draggedFileIndex === null
+                ) {
+
+                    cleanupPreview();
+
+                    return;
+
+                }
+
+
+                const elementAtPoint =
+                    document.elementFromPoint(
+                        event.clientX,
+                        event.clientY
+                    );
+
+
+                const targetCard =
+                    elementAtPoint?.closest(
+                        ".file-card"
+                    );
+
+
+                if (!targetCard) {
+
+                    draggedFileIndex = null;
+
+                    cleanupPreview();
+
+                    return;
+
+                }
+
+
+                const targetIndex =
+                    Number(
+                        targetCard.dataset.fileIndex
+                    );
+
+
+                if (
+                    Number.isNaN(targetIndex) ||
+                    targetIndex === draggedFileIndex
+                ) {
+
+                    draggedFileIndex = null;
+
+                    cleanupPreview();
+
+                    return;
+
+                }
+
+
+                const draggedFile =
+                    selectedFiles[
+                        draggedFileIndex
+                    ];
+
+
+                selectedFiles.splice(
+                    draggedFileIndex,
+                    1
+                );
+
+
+                const targetRect =
+                    targetCard.getBoundingClientRect();
+
+
+                const dropAfter =
+                    event.clientY >
+                    targetRect.top +
+                    targetRect.height / 2;
+
+
+                let newIndex = targetIndex;
+
+
+                if (
+                    draggedFileIndex < targetIndex
+                ) {
+
+                    newIndex--;
+
+                }
+
+
+                if (dropAfter) {
+
+                    newIndex++;
+
+                }
+
+
+                selectedFiles.splice(
+                    newIndex,
+                    0,
+                    draggedFile
+                );
+
+
+                draggedFileIndex = null;
+
+
+                cleanupPreview();
+
+
+                renderSelectedFiles();
+
+            }
+        );
+
+
+        dragHandle.addEventListener(
+            "pointercancel",
+            () => {
+
+                pointerDragging = false;
+
+                draggedFileIndex = null;
+
+                fileCard.classList.remove(
+                    "is-dragging"
+                );
+
+
+                if (dragPreview) {
+
+                    dragPreview.remove();
+
+                    dragPreview = null;
+
+                }
+
+            }
+        );
+
+
+        // ==========================================
+        // FILE ICON
+        // ==========================================
+
+        const fileIcon =
+            document.createElement("div");
+
+        fileIcon.className =
+            "file-icon";
+
+        fileIcon.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
         fileIcon.textContent =
-    getFileTypeBadge(file.name);
+            getFileTypeBadge(file.name);
 
-        const fileDetails = document.createElement("div");
-        fileDetails.className = "file-details";
 
-        const fileName = document.createElement("div");
-        fileName.className = "file-name";
-        fileName.title = file.name;
-        fileName.textContent = file.name;
+        // ==========================================
+        // FILE DETAILS
+        // ==========================================
 
-        const fileSize = document.createElement("div");
-        fileSize.className = "file-size";
-        fileSize.textContent = formatFileSize(file.size);
+        const fileDetails =
+            document.createElement("div");
 
-        const removeButton = document.createElement("button");
-        removeButton.type = "button";
-        removeButton.className = "remove-file-button";
-        removeButton.dataset.fileIndex = index;
+        fileDetails.className =
+            "file-details";
+
+
+        const fileName =
+            document.createElement("div");
+
+        fileName.className =
+            "file-name";
+
+        fileName.title =
+            file.name;
+
+        fileName.textContent =
+            file.name;
+
+
+        const fileSize =
+            document.createElement("div");
+
+        fileSize.className =
+            "file-size";
+
+        fileSize.textContent =
+            formatFileSize(file.size);
+
+
+        // ==========================================
+        // REMOVE BUTTON
+        // ==========================================
+
+        const removeButton =
+            document.createElement("button");
+
+        removeButton.type =
+            "button";
+
+        removeButton.className =
+            "remove-file-button";
+
+        removeButton.dataset.fileIndex =
+            index;
+
         removeButton.setAttribute(
             "aria-label",
             `Remove ${file.name}`
         );
-        removeButton.textContent = "×";
 
-        fileDetails.appendChild(fileName);
-        fileDetails.appendChild(fileSize);
+        removeButton.textContent =
+            "×";
 
-        fileCard.appendChild(dragHandle);
-        fileCard.appendChild(fileIcon);
-        fileCard.appendChild(fileDetails);
-        fileCard.appendChild(removeButton);
 
-        selectedFilesContainer.appendChild(fileCard);
+        // ==========================================
+        // BUILD FILE CARD
+        // ==========================================
+
+        fileDetails.appendChild(
+            fileName
+        );
+
+        fileDetails.appendChild(
+            fileSize
+        );
+
+
+        fileCard.appendChild(
+            dragHandle
+        );
+
+        fileCard.appendChild(
+            fileIcon
+        );
+
+        fileCard.appendChild(
+            fileDetails
+        );
+
+        fileCard.appendChild(
+            removeButton
+        );
+
+
+        selectedFilesContainer.appendChild(
+            fileCard
+        );
 
     });
 
-   if (selectedFiles.length > 0) {
 
-    const totalSize =
-        calculateTotalSize();
+    // ==========================================
+    // WORKSPACE SUMMARY
+    // ==========================================
 
-    workspaceSummary.textContent =
-        `${selectedFiles.length} ${
-            selectedFiles.length === 1
-                ? "file"
-                : "files"
-        } • ${formatFileSize(totalSize)}`;
+    if (selectedFiles.length > 0) {
 
-    workspaceSummary.classList.add("is-visible");
+        const totalSize =
+            calculateTotalSize();
 
-    workspaceActions.classList.add("is-visible");
 
-    
-} else {
+        workspaceSummary.textContent =
+            `${selectedFiles.length} ${
+                selectedFiles.length === 1
+                    ? "file"
+                    : "files"
+            } • ${formatFileSize(totalSize)}`;
 
-    workspaceSummary.textContent = "";
 
-    workspaceSummary.classList.remove("is-visible");
+        workspaceSummary.classList.add(
+            "is-visible"
+        );
 
-    workspaceActions.classList.remove("is-visible");
+        workspaceActions.classList.add(
+            "is-visible"
+        );
 
-    
+    } else {
 
-}
+        workspaceSummary.textContent = "";
+
+        workspaceSummary.classList.remove(
+            "is-visible"
+        );
+
+        workspaceActions.classList.remove(
+            "is-visible"
+        );
+
+    }
+
 }
 // ==========================================
 // NOTIFICATIONS

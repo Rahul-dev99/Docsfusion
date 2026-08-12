@@ -758,14 +758,29 @@
     cursor: grabbing;
 
 }
+@media (max-width: 480px) {
+
+    .drag-handle {
+        width: 28px;
+        min-width: 28px;
+        cursor: grab;
+        touch-action: none;
+    }
+
+    .drag-handle:active {
+        cursor: grabbing;
+    }
+
+}
 /* ==========================================
    DRAGGING FILE CARD
 ========================================== */
 
 .file-card.is-dragging {
-
-    opacity: 0.45;
-
+    opacity: 0.35;
+    transform: scale(1.02);
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.15);
+    cursor: grabbing;
 }
 .file-card.is-drag-over {
 
