@@ -814,3 +814,66 @@
     }
 
 }
+/* ==========================================
+   WORKSPACE ACTION BUTTONS
+========================================== */
+
+.workspace-actions {
+    display: none;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 16px;
+    width: 100%;
+}
+
+.workspace-actions button {
+    min-height: 42px;
+    padding: 0 20px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.1s ease;
+}
+
+.merge-pdfs-button {
+    border: 1px solid #2563EB;
+    background: #2563EB;
+    color: #FFFFFF;
+}
+
+.merge-pdfs-button:hover {
+    background: #1D4ED8;
+    border-color: #1D4ED8;
+}
+
+.merge-pdfs-button:active {
+    transform: translateY(1px);
+}
+
+.merge-pdfs-button:disabled {
+    opacity: 0.65;
+    cursor: wait;
+}
+
+.clear-all-button {
+    border: 1px solid #CBD5E1;
+    background: #FFFFFF;
+    color: #334155;
+}
+
+.clear-all-button:hover {
+    background: #F8FAFC;
+    border-color: #94A3B8;
+}
+
+.clear-all-button:active {
+    transform: translateY(1px);
+}

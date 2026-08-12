@@ -23,6 +23,8 @@ const workspaceActions =
 
 const clearAllButton =
     document.getElementById("clear-all-button");
+const mergePdfsButton =
+    document.getElementById("merge-pdfs-button");
 const notification =
     document.getElementById("notification");
 
@@ -1072,5 +1074,135 @@ clearAllButton.addEventListener("click", () => {
     fileInput.value = "";
 
     renderSelectedFiles();
+
+});
+mergePdfsButton.addEventListener("click", async () => {
+
+    if (selectedFiles.length === 0) {
+
+        showNotification(
+            "Please select at least one PDF.",
+            "warning"
+        );
+
+        return;
+
+    }
+
+    try {
+
+        mergePdfsButton.disabled = true;
+
+        mergePdfsButton.textContent =
+            "Merging...";
+
+
+        const mergedPdf =
+            await PDFDocument.create();
+
+
+        for (const file of selectedFiles) {
+
+            const fileBytes =
+                await file.arrayBuffer();
+
+
+            const sourcePdf =
+                await PDFDocument.load(
+                    fileBytes
+                );
+
+
+            const pageIndices =
+                sourcePdf.getPageIndices();
+
+
+            const copiedPages =
+                await mergedPdf.copyPages(
+                    sourcePdf,
+                    pageIndices
+                );
+
+
+            copiedPages.forEach((page) => {
+
+                mergedPdf.addPage(page);
+
+            });
+
+        }
+
+
+        const mergedPdfBytes =
+            await mergedPdf.save();
+
+
+        const blob =
+            new Blob(
+                [mergedPdfBytes],
+                {
+                    type: "application/pdf"
+                }
+            );
+
+
+        const downloadUrl =
+            URL.createObjectURL(blob);
+
+
+        const downloadLink =
+            document.createElement("a");
+
+
+        downloadLink.href =
+            downloadUrl;
+
+        downloadLink.download =
+            "DocsFusion-Merged.pdf";
+
+
+        document.body.appendChild(
+            downloadLink
+        );
+
+
+        downloadLink.click();
+
+        downloadLink.remove();
+
+
+        URL.revokeObjectURL(
+            downloadUrl
+        );
+
+
+        showNotification(
+            "PDFs merged successfully.",
+            "success"
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "PDF merge failed:",
+            error
+        );
+
+
+        showNotification(
+            "Unable to merge the selected PDFs.",
+            "error"
+        );
+
+
+    } finally {
+
+        mergePdfsButton.disabled = false;
+
+        mergePdfsButton.textContent =
+            "Merge PDFs";
+
+    }
 
 });
