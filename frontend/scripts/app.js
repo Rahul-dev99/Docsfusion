@@ -31,6 +31,14 @@ const extractEndPage =
 
 const extractPagesButton =
     document.getElementById("extract-pages-button");
+const splitPdfPanel =
+    document.getElementById("split-pdf-panel");
+
+const splitPageRanges =
+    document.getElementById("split-page-ranges");
+
+const splitPdfButton =
+    document.getElementById("split-pdf-button");
 
 const clearAllButton =
     document.getElementById("clear-all-button");
@@ -843,6 +851,9 @@ async function renderSelectedFiles() {
     extractPagesPanel.classList.add(
         "is-visible"
     );
+    splitPdfPanel.classList.add(
+    "is-visible"
+    );
 
     const selectedFile =
         selectedFiles[0];
@@ -888,6 +899,9 @@ async function renderSelectedFiles() {
     extractPagesPanel.classList.remove(
         "is-visible"
     );
+    splitPdfPanel.classList.remove(
+    "is-visible"
+    );
 
 }
 
@@ -906,7 +920,10 @@ async function renderSelectedFiles() {
     extractPagesPanel.classList.remove(
         "is-visible"
     );
-
+    splitPdfPanel.classList.remove(
+    "is-visible"
+    );
+  
 }
 
 }
@@ -1450,6 +1467,249 @@ extractPagesButton.addEventListener("click", async () => {
 
         extractPagesButton.textContent =
             "Extract Pages";
+
+    }
+
+});
+splitPdfButton.addEventListener("click", async () => {
+
+    if (selectedFiles.length !== 1) {
+
+        showNotification(
+            "Please select one PDF to split.",
+            "warning"
+        );
+
+        return;
+
+    }
+
+
+    const file =
+        selectedFiles[0];
+
+
+    const rangesText =
+        splitPageRanges.value.trim();
+
+
+    if (!rangesText) {
+
+        showNotification(
+            "Please enter at least one page range.",
+            "warning"
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        const fileBytes =
+            await file.arrayBuffer();
+
+
+        const sourcePdf =
+            await PDFDocument.load(
+                fileBytes
+            );
+
+
+        const pageCount =
+            sourcePdf.getPageCount();
+
+
+        const rangeParts =
+            rangesText
+                .split(",")
+                .map((range) => range.trim())
+                .filter(Boolean);
+
+
+        const parsedRanges = [];
+
+
+        for (const range of rangeParts) {
+
+            const match =
+                range.match(/^(\d+)(?:-(\d+))?$/);
+
+
+            if (!match) {
+
+                showNotification(
+                    `Invalid page range: ${range}`,
+                    "warning"
+                );
+
+                return;
+
+            }
+
+
+            const startPage =
+                Number(match[1]);
+
+            const endPage =
+                match[2]
+                    ? Number(match[2])
+                    : startPage;
+
+
+            if (
+                startPage < 1 ||
+                endPage > pageCount ||
+                startPage > endPage
+            ) {
+
+                showNotification(
+                    `Please enter ranges between 1 and ${pageCount}.`,
+                    "warning"
+                );
+
+                return;
+
+            }
+
+
+            parsedRanges.push({
+                startPage,
+                endPage
+            });
+
+        }
+
+
+        splitPdfButton.disabled = true;
+
+        splitPdfButton.textContent =
+            "Splitting...";
+
+
+        for (
+            let rangeIndex = 0;
+            rangeIndex < parsedRanges.length;
+            rangeIndex++
+        ) {
+
+            const {
+                startPage,
+                endPage
+            } = parsedRanges[rangeIndex];
+
+
+            const splitPdf =
+                await PDFDocument.create();
+
+
+            const pageIndices = [];
+
+
+            for (
+                let pageNumber = startPage;
+                pageNumber <= endPage;
+                pageNumber++
+            ) {
+
+                pageIndices.push(
+                    pageNumber - 1
+                );
+
+            }
+
+
+            const copiedPages =
+                await splitPdf.copyPages(
+                    sourcePdf,
+                    pageIndices
+                );
+
+
+            copiedPages.forEach((page) => {
+
+                splitPdf.addPage(page);
+
+            });
+
+
+            const splitPdfBytes =
+                await splitPdf.save();
+
+
+            const blob =
+                new Blob(
+                    [splitPdfBytes],
+                    {
+                        type: "application/pdf"
+                    }
+                );
+
+
+            const downloadUrl =
+                URL.createObjectURL(blob);
+
+
+            const downloadLink =
+                document.createElement("a");
+
+
+            downloadLink.href =
+                downloadUrl;
+
+
+            downloadLink.download =
+                `DocsFusion-Split-${rangeIndex + 1}.pdf`;
+
+
+            document.body.appendChild(
+                downloadLink
+            );
+
+
+            downloadLink.click();
+
+            downloadLink.remove();
+
+
+            URL.revokeObjectURL(
+                downloadUrl
+            );
+
+        }
+
+
+        showNotification(
+            `${parsedRanges.length} split PDF${
+                parsedRanges.length === 1
+                    ? ""
+                    : "s"
+            } created successfully.`,
+            "success"
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "PDF split failed:",
+            error
+        );
+
+
+        showNotification(
+            "Unable to split this PDF.",
+            "error"
+        );
+
+
+    } finally {
+
+        splitPdfButton.disabled = false;
+
+        splitPdfButton.textContent =
+            "Split PDF";
 
     }
 

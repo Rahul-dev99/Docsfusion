@@ -999,3 +999,138 @@
 
     cursor: wait;
 }
+/* ==========================================
+   SPLIT PDF
+========================================== */
+/* ==========================================
+   SPLIT PDF
+========================================== */
+
+.split-pdf-panel {
+    display: none;
+
+    margin-top: 16px;
+
+    padding: 18px;
+
+    border: 1px solid #E2E8F0;
+
+    border-radius: 12px;
+
+    background: #F8FAFC;
+}
+
+.split-pdf-panel.is-visible {
+    display: block;
+}
+
+.split-pdf-title {
+    margin-bottom: 8px;
+
+    color: #0F172A;
+
+    font-size: 16px;
+
+    font-weight: 700;
+}
+
+.split-pdf-help {
+    margin: 0 0 14px;
+
+    color: #64748B;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+.split-pdf-controls {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+}
+
+.split-pdf-controls label {
+    color: #475569;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+.split-pdf-controls input {
+    flex: 1;
+
+    min-width: 180px;
+
+    height: 40px;
+
+    padding: 0 12px;
+
+    border: 1px solid #CBD5E1;
+
+    border-radius: 8px;
+
+    background: #FFFFFF;
+
+    color: #0F172A;
+
+    font: inherit;
+}
+
+.split-pdf-controls input:focus {
+    outline: 3px solid rgba(37, 99, 235, 0.18);
+
+    border-color: #2563EB;
+}
+
+.split-pdf-controls input::placeholder {
+    color: #94A3B8;
+}
+
+.split-pdf-button {
+    min-height: 40px;
+
+    padding: 0 18px;
+
+    border: 1px solid #2563EB;
+
+    border-radius: 8px;
+
+    background: #2563EB;
+
+    color: #FFFFFF;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.1s ease;
+}
+
+.split-pdf-button:hover {
+    background: #1D4ED8;
+
+    border-color: #1D4ED8;
+}
+
+.split-pdf-button:active {
+    transform: translateY(1px);
+}
+
+.split-pdf-button:disabled {
+    opacity: 0.65;
+
+    cursor: wait;
+}

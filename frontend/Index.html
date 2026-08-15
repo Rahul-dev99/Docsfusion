@@ -147,15 +147,6 @@
 
         </div>
 
-       <div
-    class="notification"
-    id="notification"
-    role="status"
-    aria-live="polite"
-    aria-atomic="true"
->
-</div>
-
 <div
     class="notification"
     id="notification"
@@ -223,6 +214,44 @@
             id="extract-pages-button"
         >
             Extract Pages
+        </button>
+
+    </div>
+</div>
+<div
+    class="split-pdf-panel"
+    id="split-pdf-panel"
+>
+    <div class="split-pdf-title">
+        Split PDF
+    </div>
+
+    <p class="split-pdf-help">
+        Enter page ranges separated by commas.
+        Example: 1-3, 4-6, 7-10
+    </p>
+
+    <div class="split-pdf-controls">
+
+        <label
+            for="split-page-ranges"
+        >
+            Page ranges
+        </label>
+
+        <input
+            type="text"
+            id="split-page-ranges"
+            placeholder="1-3, 4-6"
+            autocomplete="off"
+        >
+
+        <button
+            type="button"
+            class="split-pdf-button"
+            id="split-pdf-button"
+        >
+            Split PDF
         </button>
 
     </div>
