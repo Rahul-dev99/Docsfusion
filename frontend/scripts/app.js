@@ -20,6 +20,17 @@ const workspaceSummary =
     document.getElementById("workspace-summary");
 const workspaceActions =
     document.getElementById("workspace-actions");
+const extractPagesPanel =
+    document.getElementById("extract-pages-panel");
+
+const extractStartPage =
+    document.getElementById("extract-start-page");
+
+const extractEndPage =
+    document.getElementById("extract-end-page");
+
+const extractPagesButton =
+    document.getElementById("extract-pages-button");
 
 const clearAllButton =
     document.getElementById("clear-all-button");
@@ -175,7 +186,7 @@ function calculateTotalSize() {
 // DISPLAY FILES
 // ==========================================
 
-function renderSelectedFiles() {
+async function renderSelectedFiles() {
 
     selectedFilesContainer.innerHTML = "";
 
@@ -803,39 +814,100 @@ function renderSelectedFiles() {
 
     if (selectedFiles.length > 0) {
 
-        const totalSize =
-            calculateTotalSize();
+    const totalSize =
+        calculateTotalSize();
 
 
-        workspaceSummary.textContent =
-            `${selectedFiles.length} ${
-                selectedFiles.length === 1
-                    ? "file"
-                    : "files"
-            } • ${formatFileSize(totalSize)}`;
+    workspaceSummary.textContent =
+        `${selectedFiles.length} ${
+            selectedFiles.length === 1
+                ? "file"
+                : "files"
+        } • ${formatFileSize(totalSize)}`;
 
 
-        workspaceSummary.classList.add(
-            "is-visible"
+    workspaceSummary.classList.add(
+        "is-visible"
+    );
+
+    workspaceActions.classList.add(
+        "is-visible"
+    );
+
+
+    // Show page extraction controls
+    // only when exactly one PDF is selected.
+
+    if (selectedFiles.length === 1) {
+
+    extractPagesPanel.classList.add(
+        "is-visible"
+    );
+
+    const selectedFile =
+        selectedFiles[0];
+
+    try {
+
+        const pageCount =
+            await getPdfPageCount(
+                selectedFile
+            );
+
+        extractStartPage.max =
+            pageCount;
+
+        extractEndPage.max =
+            pageCount;
+
+        extractStartPage.value =
+            1;
+
+        extractEndPage.value =
+            pageCount;
+
+    } catch (error) {
+
+        console.error(
+            "Unable to read PDF page count:",
+            error
         );
 
-        workspaceActions.classList.add(
-            "is-visible"
-        );
+        extractStartPage.max = "";
 
-    } else {
+        extractEndPage.max = "";
 
-        workspaceSummary.textContent = "";
+        extractStartPage.value = 1;
 
-        workspaceSummary.classList.remove(
-            "is-visible"
-        );
-
-        workspaceActions.classList.remove(
-            "is-visible"
-        );
+        extractEndPage.value = 1;
 
     }
+
+} else {
+
+    extractPagesPanel.classList.remove(
+        "is-visible"
+    );
+
+}
+
+} else {
+
+    workspaceSummary.textContent = "";
+
+    workspaceSummary.classList.remove(
+        "is-visible"
+    );
+
+    workspaceActions.classList.remove(
+        "is-visible"
+    );
+
+    extractPagesPanel.classList.remove(
+        "is-visible"
+    );
+
+}
 
 }
 // ==========================================
@@ -1202,6 +1274,182 @@ mergePdfsButton.addEventListener("click", async () => {
 
         mergePdfsButton.textContent =
             "Merge PDFs";
+
+    }
+
+});
+extractPagesButton.addEventListener("click", async () => {
+
+    if (selectedFiles.length !== 1) {
+
+        showNotification(
+            "Please select one PDF to extract pages.",
+            "warning"
+        );
+
+        return;
+
+    }
+
+
+    const file =
+        selectedFiles[0];
+
+
+    const startPage =
+        Number(extractStartPage.value);
+
+    const endPage =
+        Number(extractEndPage.value);
+
+
+    try {
+
+        const fileBytes =
+            await file.arrayBuffer();
+
+
+        const sourcePdf =
+            await PDFDocument.load(
+                fileBytes
+            );
+
+
+        const pageCount =
+            sourcePdf.getPageCount();
+
+
+        // Validate the requested page range
+
+        if (
+            !Number.isInteger(startPage) ||
+            !Number.isInteger(endPage) ||
+            startPage < 1 ||
+            endPage > pageCount ||
+            startPage > endPage
+        ) {
+
+            showNotification(
+                `Please enter a valid page range between 1 and ${pageCount}.`,
+                "warning"
+            );
+
+            return;
+
+        }
+
+
+        extractPagesButton.disabled = true;
+
+        extractPagesButton.textContent =
+            "Extracting...";
+
+
+        const extractedPdf =
+            await PDFDocument.create();
+
+
+        // pdf-lib uses page indexes starting at 0.
+        // Users use page numbers starting at 1.
+
+        const pageIndices = [];
+
+        for (
+            let pageNumber = startPage;
+            pageNumber <= endPage;
+            pageNumber++
+        ) {
+
+            pageIndices.push(
+                pageNumber - 1
+            );
+
+        }
+
+
+        const copiedPages =
+            await extractedPdf.copyPages(
+                sourcePdf,
+                pageIndices
+            );
+
+
+        copiedPages.forEach((page) => {
+
+            extractedPdf.addPage(page);
+
+        });
+
+
+        const extractedPdfBytes =
+            await extractedPdf.save();
+
+
+        const blob =
+            new Blob(
+                [extractedPdfBytes],
+                {
+                    type: "application/pdf"
+                }
+            );
+
+
+        const downloadUrl =
+            URL.createObjectURL(blob);
+
+
+        const downloadLink =
+            document.createElement("a");
+
+
+        downloadLink.href =
+            downloadUrl;
+
+        downloadLink.download =
+            "DocsFusion-Extracted.pdf";
+
+
+        document.body.appendChild(
+            downloadLink
+        );
+
+
+        downloadLink.click();
+
+        downloadLink.remove();
+
+
+        URL.revokeObjectURL(
+            downloadUrl
+        );
+
+
+        showNotification(
+            `Pages ${startPage}-${endPage} extracted successfully.`,
+            "success"
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "PDF page extraction failed:",
+            error
+        );
+
+
+        showNotification(
+            "Unable to extract pages from this PDF.",
+            "error"
+        );
+
+
+    } finally {
+
+        extractPagesButton.disabled = false;
+
+        extractPagesButton.textContent =
+            "Extract Pages";
 
     }
 
