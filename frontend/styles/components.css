@@ -419,6 +419,57 @@
     display: none;
 
 }
+
+/* ==========================================
+   CLICKABLE LOGO
+========================================== */
+
+.header a.logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    font-size: 20px;
+    font-weight: 700;
+
+    color: #2563EB;
+
+    text-decoration: none;
+
+    line-height: 1;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+}
+
+.header a.logo:visited {
+    color: #2563EB;
+
+    text-decoration: none;
+}
+
+.header a.logo:hover {
+    color: #1D4ED8;
+
+    text-decoration: none;
+}
+
+.header a.logo:focus {
+    color: #2563EB;
+
+    text-decoration: none;
+}
+
+.header a.logo:focus-visible {
+    outline: 3px solid rgba(37, 99, 235, 0.25);
+
+    outline-offset: 4px;
+
+    border-radius: 4px;
+
+    text-decoration: none;
+}
 /* ==========================================
    MOBILE NAVIGATION
 ========================================== */
@@ -433,13 +484,7 @@
 
     }
 
-    .logo {
-
-        font-size: 20px;
-
-    }
-
-    .mobile-menu-button {
+        .mobile-menu-button {
 
         display: flex;
 

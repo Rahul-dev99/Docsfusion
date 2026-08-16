@@ -32,9 +32,13 @@
 
    <header class="header">
 
-    <div class="logo">
-        📄 DocsFusion
-    </div>
+    <a
+    href="./"
+    class="logo"
+    aria-label="DocsFusion home"
+>
+    📄 DocsFusion
+</a>
 
     <button
         type="button"
@@ -89,8 +93,9 @@
         </button>
 
     </section>
-    <section
+   <section
     class="tool-selector"
+    id="tools"
     aria-labelledby="tool-selector-title"
 >
     <div class="tool-selector-container">
@@ -107,16 +112,14 @@
 
         </div>
 
-        <div
+        <nav
             class="tool-options"
-            role="group"
             aria-label="PDF tools"
         >
 
-            <button
-                type="button"
+            <a
+                href="./merge-pdf/"
                 class="tool-option"
-                data-tool="merge"
             >
                 <span class="tool-option-title">
                     Merge PDF
@@ -125,12 +128,12 @@
                 <span class="tool-option-description">
                     Combine multiple PDFs
                 </span>
-            </button>
+            </a>
 
-            <button
-                type="button"
+
+            <a
+                href="./split-pdf/"
                 class="tool-option"
-                data-tool="split"
             >
                 <span class="tool-option-title">
                     Split PDF
@@ -139,23 +142,23 @@
                 <span class="tool-option-description">
                     Create separate PDF files
                 </span>
-            </button>
+            </a>
 
-            <button
-                type="button"
+
+            <a
+                href="./extract-pdf-pages/"
                 class="tool-option"
-                data-tool="extract"
             >
                 <span class="tool-option-title">
                     Extract Pages
                 </span>
 
                 <span class="tool-option-description">
-                    Save selected pages
+                    Save selected PDF pages
                 </span>
-            </button>
+            </a>
 
-        </div>
+        </nav>
 
     </div>
 </section>
