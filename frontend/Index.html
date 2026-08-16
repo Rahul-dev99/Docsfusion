@@ -89,22 +89,91 @@
         </button>
 
     </section>
+    <section
+    class="tool-selector"
+    aria-labelledby="tool-selector-title"
+>
+    <div class="tool-selector-container">
+
+        <div class="tool-selector-header">
+
+            <h2 id="tool-selector-title">
+                Choose a PDF tool
+            </h2>
+
+            <p>
+                Select what you want to do with your PDF documents.
+            </p>
+
+        </div>
+
+        <div
+            class="tool-options"
+            role="group"
+            aria-label="PDF tools"
+        >
+
+            <button
+                type="button"
+                class="tool-option"
+                data-tool="merge"
+            >
+                <span class="tool-option-title">
+                    Merge PDF
+                </span>
+
+                <span class="tool-option-description">
+                    Combine multiple PDFs
+                </span>
+            </button>
+
+            <button
+                type="button"
+                class="tool-option"
+                data-tool="split"
+            >
+                <span class="tool-option-title">
+                    Split PDF
+                </span>
+
+                <span class="tool-option-description">
+                    Create separate PDF files
+                </span>
+            </button>
+
+            <button
+                type="button"
+                class="tool-option"
+                data-tool="extract"
+            >
+                <span class="tool-option-title">
+                    Extract Pages
+                </span>
+
+                <span class="tool-option-description">
+                    Save selected pages
+                </span>
+            </button>
+
+        </div>
+
+    </div>
+</section>
 <section class="upload-section" aria-labelledby="upload-title">
 
     <div class="upload-container">
 
         <div class="upload-header">
 
-            <h2 id="upload-title">
-                Upload your documents
-            </h2>
+    <h2 id="upload-title">
+        Upload your documents
+    </h2>
 
-            <p>
-                Drag and drop your files here, or browse from your device.
-            </p>
+    <p id="upload-description">
+        Drag and drop your files here, or browse from your device.
+    </p>
 
-        </div>
-
+</div>
         <div
             class="upload-dropzone"
             id="upload-dropzone"
@@ -133,8 +202,11 @@
                 Browse Files
             </button>
 
-            <p class="upload-supported">
-                PDF, JPG, PNG, DOCX and XLSX
+            <p
+                class="upload-supported"
+                 id="upload-supported"
+>
+             PDF files only
             </p>
 
             <input

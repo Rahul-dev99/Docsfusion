@@ -39,6 +39,8 @@ const splitPageRanges =
 
 const splitPdfButton =
     document.getElementById("split-pdf-button");
+const toolOptions =
+    document.querySelectorAll(".tool-option");
 
 const clearAllButton =
     document.getElementById("clear-all-button");
@@ -46,12 +48,20 @@ const mergePdfsButton =
     document.getElementById("merge-pdfs-button");
 const notification =
     document.getElementById("notification");
+const uploadTitle =
+    document.getElementById("upload-title");
+
+const uploadDescription =
+    document.getElementById("upload-description");
+const uploadSupported =
+    document.getElementById("upload-supported");
 
 // ==========================================
 // APPLICATION STATE
 // ==========================================
 
 let selectedFiles = [];
+let selectedTool = null;
 let draggedFileIndex = null;
 
 let pointerDragging = false;
@@ -87,6 +97,17 @@ const MAX_FILE_SIZE = 50 * 1024 * 1024;
 
 function openFilePicker() {
 
+    if (!selectedTool) {
+
+        showNotification(
+            "Please choose a PDF tool first.",
+            "warning"
+        );
+
+        return;
+
+    }
+
     fileInput.click();
 
 }
@@ -95,6 +116,17 @@ function openFilePicker() {
 // FILE VALIDATION
 // ==========================================
 
+function isPdfFile(file) {
+
+    const fileName =
+        file.name.toLowerCase();
+
+    return (
+        file.type === "application/pdf" ||
+        fileName.endsWith(".pdf")
+    );
+
+}
 function validateFile(file) {
 
     if (!allowedFileTypes.includes(file.type)) {
@@ -825,7 +857,6 @@ async function renderSelectedFiles() {
     const totalSize =
         calculateTotalSize();
 
-
     workspaceSummary.textContent =
         `${selectedFiles.length} ${
             selectedFiles.length === 1
@@ -833,77 +864,119 @@ async function renderSelectedFiles() {
                 : "files"
         } • ${formatFileSize(totalSize)}`;
 
-
     workspaceSummary.classList.add(
         "is-visible"
     );
 
+    // Keep workspace actions visible so
+    // Clear All remains available.
     workspaceActions.classList.add(
         "is-visible"
     );
 
 
-    // Show page extraction controls
-    // only when exactly one PDF is selected.
+    // ==========================================
+    // MERGE PDF
+    // ==========================================
 
-    if (selectedFiles.length === 1) {
+    if (selectedTool === "merge") {
 
-    extractPagesPanel.classList.add(
-        "is-visible"
-    );
-    splitPdfPanel.classList.add(
-    "is-visible"
-    );
+        mergePdfsButton.hidden = false;
 
-    const selectedFile =
-        selectedFiles[0];
+    } else {
 
-    try {
-
-        const pageCount =
-            await getPdfPageCount(
-                selectedFile
-            );
-
-        extractStartPage.max =
-            pageCount;
-
-        extractEndPage.max =
-            pageCount;
-
-        extractStartPage.value =
-            1;
-
-        extractEndPage.value =
-            pageCount;
-
-    } catch (error) {
-
-        console.error(
-            "Unable to read PDF page count:",
-            error
-        );
-
-        extractStartPage.max = "";
-
-        extractEndPage.max = "";
-
-        extractStartPage.value = 1;
-
-        extractEndPage.value = 1;
+        mergePdfsButton.hidden = true;
 
     }
 
-} else {
 
-    extractPagesPanel.classList.remove(
-        "is-visible"
-    );
-    splitPdfPanel.classList.remove(
-    "is-visible"
-    );
+    // ==========================================
+    // SPLIT PDF
+    // ==========================================
 
-}
+    if (
+        selectedTool === "split" &&
+        selectedFiles.length === 1
+    ) {
+
+        splitPdfPanel.classList.add(
+            "is-visible"
+        );
+
+    } else {
+
+        splitPdfPanel.classList.remove(
+            "is-visible"
+        );
+
+    }
+
+
+    // ==========================================
+    // EXTRACT PAGES
+    // ==========================================
+
+    if (
+        selectedTool === "extract" &&
+        selectedFiles.length === 1
+    ) {
+
+        extractPagesPanel.classList.add(
+            "is-visible"
+        );
+
+
+        const selectedFile =
+            selectedFiles[0];
+
+
+        try {
+
+            const pageCount =
+                await getPdfPageCount(
+                    selectedFile
+                );
+
+
+            extractStartPage.max =
+                pageCount;
+
+            extractEndPage.max =
+                pageCount;
+
+            extractStartPage.value =
+                1;
+
+            extractEndPage.value =
+                pageCount;
+
+
+        } catch (error) {
+
+            console.error(
+                "Unable to read PDF page count:",
+                error
+            );
+
+
+            extractStartPage.max = "";
+
+            extractEndPage.max = "";
+
+            extractStartPage.value = 1;
+
+            extractEndPage.value = 1;
+
+        }
+
+    } else {
+
+        extractPagesPanel.classList.remove(
+            "is-visible"
+        );
+
+    }
+
 
 } else {
 
@@ -917,15 +990,17 @@ async function renderSelectedFiles() {
         "is-visible"
     );
 
+    mergePdfsButton.hidden = true;
+
     extractPagesPanel.classList.remove(
         "is-visible"
     );
-    splitPdfPanel.classList.remove(
-    "is-visible"
-    );
-  
-}
 
+    splitPdfPanel.classList.remove(
+        "is-visible"
+    );
+
+}
 }
 // ==========================================
 // NOTIFICATIONS
@@ -971,7 +1046,30 @@ async function processFiles(files) {
     const validFiles = [];
     const errors = [];
 
+    const singleFileTool =
+        selectedTool === "split" ||
+        selectedTool === "extract";
+
+
     filesToAdd.forEach((file) => {
+        const pdfOnlyTool =
+        selectedTool === "merge" ||
+        selectedTool === "split" ||
+        selectedTool === "extract";
+
+
+    if (
+        pdfOnlyTool &&
+        !isPdfFile(file)
+    ) {
+
+        errors.push(
+            `${file.name} can't be added. Please upload PDF files only.`
+        );
+
+        return;
+
+    }
 
         const validation = validateFile(file);
 
@@ -983,6 +1081,7 @@ async function processFiles(files) {
 
         }
 
+
         const duplicate = selectedFiles.some(
             (existingFile) =>
                 existingFile.name === file.name &&
@@ -990,36 +1089,68 @@ async function processFiles(files) {
                 existingFile.lastModified === file.lastModified
         );
 
+
         if (duplicate) {
 
             errors.push(
-    `${file.name} is already selected.`
-);
+                `${file.name} is already selected.`
+            );
 
             return;
 
         }
 
+
+        // Split PDF and Extract Pages
+        // allow only one selected file.
+
+        if (
+            singleFileTool &&
+            (
+                selectedFiles.length > 0 ||
+                validFiles.length > 0
+            )
+        ) {
+
+            const toolName =
+                selectedTool === "split"
+                    ? "Split PDF"
+                    : "Extract Pages";
+
+            errors.push(
+                `${toolName} works with one PDF at a time. Additional files were not added.`
+            );
+
+            return;
+
+        }
+
+
         validFiles.push(file);
 
     });
 
+
     selectedFiles.push(...validFiles);
 
-renderSelectedFiles();
 
-if (errors.length > 0) {
+    await renderSelectedFiles();
 
-    showNotification(
-        errors.join(" "),
-        "warning"
-    );
 
-} else if (validFiles.length > 0) {
+    if (errors.length > 0) {
 
-    notification.classList.remove("is-visible");
+        showNotification(
+            errors.join(" "),
+            "warning"
+        );
 
-}
+    } else if (validFiles.length > 0) {
+
+        notification.classList.remove(
+            "is-visible"
+        );
+
+    }
 
 }
 async function getPdfPageCount(file) {
@@ -1121,11 +1252,27 @@ uploadDropzone.addEventListener("drop", (event) => {
 
     uploadDropzone.classList.remove("drag-over");
 
-    const droppedFiles = event.dataTransfer.files;
+
+    if (!selectedTool) {
+
+        showNotification(
+            "Please choose a PDF tool first.",
+            "warning"
+        );
+
+        return;
+
+    }
+
+
+    const droppedFiles =
+        event.dataTransfer.files;
+
 
     if (droppedFiles.length === 0) {
         return;
     }
+
 
     processFiles(droppedFiles);
 
@@ -1712,5 +1859,91 @@ splitPdfButton.addEventListener("click", async () => {
             "Split PDF";
 
     }
+
+});
+toolOptions.forEach((toolOption) => {
+
+    toolOption.addEventListener("click", () => {
+
+        const tool =
+            toolOption.dataset.tool;
+
+
+        selectedTool = tool;
+
+        // Clear any previous notification
+        // when a valid tool is selected.
+
+        notification.classList.remove(
+         "is-visible"
+        );
+
+        notification.textContent = "";
+        
+        if (selectedTool === "merge") {
+
+    uploadTitle.textContent =
+        "Upload PDFs to merge";
+
+    uploadDescription.textContent =
+        "Upload two or more PDF files and arrange them in the order you want.";
+
+} else if (selectedTool === "split") {
+
+    uploadTitle.textContent =
+        "Upload one PDF to split";
+
+    uploadDescription.textContent =
+        "Upload a single PDF file and choose the page ranges you want to create.";
+
+} else if (selectedTool === "extract") {
+
+    uploadTitle.textContent =
+        "Upload one PDF File to extract pages";
+
+    uploadDescription.textContent =
+        "Upload a single PDF file and choose the pages you want to save.";
+
+}
+// PDF tools currently accept PDF files only.
+fileInput.accept = ".pdf";
+
+uploadSupported.textContent =
+    "PDF files only";
+
+
+        toolOptions.forEach((option) => {
+
+            option.classList.remove(
+                "is-active"
+            );
+
+        });
+
+
+        toolOption.classList.add(
+            "is-active"
+        );
+        if (
+    (selectedTool === "split" ||
+     selectedTool === "extract") &&
+    selectedFiles.length > 1
+) {
+
+    const toolName =
+        selectedTool === "split"
+            ? "Split PDF"
+            : "Extract Pages";
+
+    showNotification(
+        `${toolName} works with one PDF at a time. Please remove the extra files and keep only one PDF.`,
+        "warning"
+    );
+
+}
+
+        renderSelectedFiles();
+
+    });
 
 });
