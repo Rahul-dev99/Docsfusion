@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Extract PDF Pages Online – Save Selected Pages | DocsFusion
+    </title>
+
+    <meta
+        name="description"
+        content="Extract pages from a PDF online with DocsFusion. Choose the page range you want and save selected PDF pages directly in your browser."
+    >
+
+    <link
+        rel="stylesheet"
+        href="../styles/main.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../styles/layout.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../styles/components.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../styles/responsive.css"
+    >
+
+</head>
+
+<body>
+
+    <!-- ==========================================
+         HEADER
+    =========================================== -->
+
+    <header class="header">
+
+        <div class="logo">
+            📄 DocsFusion
+        </div>
+
+        <button
+            type="button"
+            class="mobile-menu-button"
+            id="mobile-menu-button"
+            aria-label="Open navigation menu"
+            aria-expanded="false"
+            aria-controls="main-navigation"
+        >
+            ☰
+        </button>
+
+        <nav
+            class="navigation"
+            id="main-navigation"
+        >
+
+            <a href="../">
+                Home
+            </a>
+
+            <a href="../#tools">
+                Tools
+            </a>
+
+            <a href="../#pricing">
+                Pricing
+            </a>
+
+            <a href="../#about">
+                About
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <main>
+
+
+        <!-- ======================================
+             EXTRACT PDF HERO
+        ======================================= -->
+
+        <section class="hero">
+
+            <h1>
+                Extract PDF Pages Online
+            </h1>
+
+            <p>
+                Choose specific pages from one PDF and
+                save them as a new PDF document.
+            </p>
+
+        </section>
+
+
+        <!-- ======================================
+             EXTRACT PDF WORKSPACE
+        ======================================= -->
+
+        <section
+            class="upload-section"
+            aria-labelledby="extract-upload-title"
+        >
+
+            <div class="upload-container">
+
+
+                <!-- ==================================
+                     UPLOAD HEADER
+                =================================== -->
+
+                <div class="upload-header">
+
+                    <h2 id="extract-upload-title">
+                        Upload one PDF to extract pages
+                    </h2>
+
+                    <p>
+                        Upload a single PDF and choose the
+                        pages you want to save.
+                    </p>
+
+                </div>
+
+
+                <!-- ==================================
+                     DROPZONE
+                =================================== -->
+
+                <div
+                    class="upload-dropzone"
+                    id="upload-dropzone"
+                    tabindex="0"
+                    role="button"
+                    aria-label="Upload one PDF file"
+                >
+
+                    <div
+                        class="upload-icon"
+                        aria-hidden="true"
+                    >
+                        ↑
+                    </div>
+
+                    <h3>
+                        Drag &amp; drop your PDF file here
+                    </h3>
+
+                    <p>
+                        or
+                    </p>
+
+                    <button
+                        type="button"
+                        class="upload-button"
+                        id="browse-files-button"
+                    >
+                        Browse File
+                    </button>
+
+                    <p
+                        class="upload-supported"
+                        id="upload-supported"
+                    >
+                        PDF files only
+                    </p>
+
+                    <input
+                        type="file"
+                        id="file-input"
+                        class="file-input"
+                        accept=".pdf"
+                    >
+
+                </div>
+
+
+                <!-- ==================================
+                     NOTIFICATION
+                =================================== -->
+
+                <div
+                    class="notification"
+                    id="notification"
+                    role="status"
+                    aria-live="polite"
+                    aria-atomic="true"
+                >
+                </div>
+
+
+                <!-- ==================================
+                     SELECTED FILE
+                =================================== -->
+
+                <div
+                    class="selected-files"
+                    id="selected-files"
+                    aria-label="Selected file"
+                >
+                </div>
+
+
+                <!-- ==================================
+                     WORKSPACE SUMMARY
+                =================================== -->
+
+                <div
+                    class="workspace-summary"
+                    id="workspace-summary"
+                    aria-live="polite"
+                >
+                </div>
+
+
+                <!-- ==================================
+                     EXTRACT PAGE CONTROLS
+                =================================== -->
+
+                <div
+                    class="extract-pages-panel"
+                    id="extract-pages-panel"
+                >
+
+                    <div class="extract-pages-title">
+                        Extract PDF Pages
+                    </div>
+
+                    <div class="extract-pages-controls">
+
+                        <label
+                            for="extract-start-page"
+                        >
+                            From
+                        </label>
+
+                        <input
+                            type="number"
+                            id="extract-start-page"
+                            min="1"
+                            value="1"
+                        >
+
+                        <span aria-hidden="true">
+                            -
+                        </span>
+
+                        <label
+                            for="extract-end-page"
+                        >
+                            To
+                        </label>
+
+                        <input
+                            type="number"
+                            id="extract-end-page"
+                            min="1"
+                            value="1"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- ==================================
+                     OUTPUT FILE NAME
+                =================================== -->
+
+                <div
+                    class="output-file-panel"
+                    id="output-file-panel"
+                >
+
+                    <label
+                        for="output-file-name"
+                        class="output-file-label"
+                    >
+                        Output file name
+                    </label>
+
+                    <div class="output-file-control">
+
+                        <input
+                            type="text"
+                            id="output-file-name"
+                            class="output-file-input"
+                            value="DocsFusion-Extracted"
+                            autocomplete="off"
+                            aria-label="Extracted PDF output file name"
+                        >
+
+                        <span
+                            class="output-file-extension"
+                            aria-hidden="true"
+                        >
+                            .pdf
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ==================================
+                     WORKSPACE ACTIONS
+                =================================== -->
+
+                <div
+                    class="workspace-actions"
+                    id="workspace-actions"
+                >
+
+                    <button
+                        type="button"
+                        class="extract-pages-button"
+                        id="extract-pages-button"
+                    >
+                        Extract Pages
+                    </button>
+
+                    <button
+                        type="button"
+                        class="clear-all-button"
+                        id="clear-all-button"
+                    >
+                        Clear All
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ======================================
+             SEO / TOOL INFORMATION
+        ======================================= -->
+
+        <section class="tool-content">
+
+            <div class="tool-content-container">
+
+                <h2>
+                    How to extract pages from a PDF
+                </h2>
+
+                <p>
+                    Upload one PDF, choose the first and last
+                    page you want to save, and select Extract
+                    Pages. DocsFusion creates a new PDF
+                    containing only the selected page range.
+                </p>
+
+
+                <h2>
+                    Save only the PDF pages you need
+                </h2>
+
+                <p>
+                    Extracting pages is useful when you need
+                    only part of a larger document, such as
+                    a chapter, section, form, or selected
+                    pages from a report.
+                </p>
+
+
+                <h2>
+                    Why use DocsFusion to extract PDF pages?
+                </h2>
+
+                <p>
+                    DocsFusion is designed to process supported
+                    PDF operations directly in your browser,
+                    helping you create a smaller PDF with only
+                    the pages you choose.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ==========================================
+         FOOTER
+    =========================================== -->
+
+    <footer>
+    </footer>
+
+
+    <!-- ==========================================
+         EXTRACT PDF SCRIPT
+    =========================================== -->
+
+    <script
+        type="module"
+        src="../scripts/extract-pdf-pages.js"
+    ></script>
+
+</body>
+
+</html>
