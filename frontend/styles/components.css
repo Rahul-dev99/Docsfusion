@@ -1238,3 +1238,117 @@
     }
 
 }
+/* ==========================================
+   TOOL PAGE CONTENT
+========================================== */
+
+.tool-content {
+    padding: 48px 20px 64px;
+}
+
+.tool-content-container {
+    width: min(100%, 900px);
+    margin: 0 auto;
+}
+
+.tool-content h2 {
+    margin: 0 0 12px;
+
+    color: #0F172A;
+
+    font-size: 24px;
+
+    font-weight: 700;
+}
+
+.tool-content h2:not(:first-child) {
+    margin-top: 36px;
+}
+
+.tool-content p {
+    margin: 0;
+
+    color: #475569;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+}
+/* ==========================================
+   OUTPUT FILE NAME
+========================================== */
+
+.output-file-panel {
+    display: none;
+
+    margin-top: 16px;
+}
+
+.output-file-panel.is-visible {
+    display: block;
+}
+
+.output-file-label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #475569;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+.output-file-control {
+    display: flex;
+
+    align-items: center;
+
+    max-width: 420px;
+
+    border: 1px solid #CBD5E1;
+
+    border-radius: 8px;
+
+    background: #FFFFFF;
+
+    overflow: hidden;
+}
+
+.output-file-input {
+    flex: 1;
+
+    min-width: 0;
+
+    height: 42px;
+
+    padding: 0 12px;
+
+    border: 0;
+
+    outline: none;
+
+    background: transparent;
+
+    color: #0F172A;
+
+    font: inherit;
+}
+
+.output-file-control:focus-within {
+    border-color: #2563EB;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.output-file-extension {
+    padding: 0 12px;
+
+    color: #64748B;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}

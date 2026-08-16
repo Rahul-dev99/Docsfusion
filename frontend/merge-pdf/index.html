@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Merge PDF Online – Combine PDF Files | DocsFusion
+    </title>
+
+    <meta
+        name="description"
+        content="Merge PDF files online with DocsFusion. Combine multiple PDFs in your preferred order directly in your browser."
+    >
+
+    <link
+        rel="stylesheet"
+        href="../styles/main.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../styles/layout.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../styles/components.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../styles/responsive.css"
+    >
+
+</head>
+
+<body>
+
+    <!-- ==========================================
+         HEADER
+    =========================================== -->
+
+    <header class="header">
+
+        <div class="logo">
+            📄 DocsFusion
+        </div>
+
+        <button
+            type="button"
+            class="mobile-menu-button"
+            id="mobile-menu-button"
+            aria-label="Open navigation menu"
+            aria-expanded="false"
+            aria-controls="main-navigation"
+        >
+            ☰
+        </button>
+
+        <nav
+            class="navigation"
+            id="main-navigation"
+        >
+
+            <a href="../">
+                Home
+            </a>
+
+            <a href="../#tools">
+                Tools
+            </a>
+
+            <a href="../#pricing">
+                Pricing
+            </a>
+
+            <a href="../#about">
+                About
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- ==========================================
+         MAIN CONTENT
+    =========================================== -->
+
+    <main>
+
+
+        <!-- ======================================
+             MERGE PDF HERO
+        ======================================= -->
+
+        <section class="hero">
+
+            <h1>
+                Merge PDF Online
+            </h1>
+
+            <p>
+                Combine multiple PDF files into one document
+                in the order you choose.
+            </p>
+
+        </section>
+
+
+        <!-- ======================================
+             MERGE PDF WORKSPACE
+        ======================================= -->
+
+        <section
+            class="upload-section"
+            aria-labelledby="merge-upload-title"
+        >
+
+            <div class="upload-container">
+
+
+                <!-- ==================================
+                     UPLOAD HEADER
+                =================================== -->
+
+                <div class="upload-header">
+
+                    <h2 id="merge-upload-title">
+                        Upload PDFs to merge
+                    </h2>
+
+                    <p>
+                        Upload two or more PDF files and arrange
+                        them in the order you want.
+                    </p>
+
+                </div>
+
+
+                <!-- ==================================
+                     DROPZONE
+                =================================== -->
+
+                <div
+                    class="upload-dropzone"
+                    id="upload-dropzone"
+                    tabindex="0"
+                    role="button"
+                    aria-label="Upload PDF files"
+                >
+
+                    <div
+                        class="upload-icon"
+                        aria-hidden="true"
+                    >
+                        ↑
+                    </div>
+
+                    <h3>
+                        Drag &amp; drop your PDF files here
+                    </h3>
+
+                    <p>
+                        or
+                    </p>
+
+                    <button
+                        type="button"
+                        class="upload-button"
+                        id="browse-files-button"
+                    >
+                        Browse Files
+                    </button>
+
+                    <p
+                        class="upload-supported"
+                        id="upload-supported"
+                    >
+                        PDF files only
+                    </p>
+
+                    <input
+                        type="file"
+                        id="file-input"
+                        class="file-input"
+                        multiple
+                        accept=".pdf"
+                    >
+
+                </div>
+
+
+                <!-- ==================================
+                     NOTIFICATION
+                =================================== -->
+
+                <div
+                    class="notification"
+                    id="notification"
+                    role="status"
+                    aria-live="polite"
+                    aria-atomic="true"
+                >
+                </div>
+
+
+                <!-- ==================================
+                     SELECTED FILES
+                =================================== -->
+
+                <div
+                    class="selected-files"
+                    id="selected-files"
+                    aria-label="Selected files"
+                >
+                </div>
+
+
+                <!-- ==================================
+                     WORKSPACE SUMMARY
+                =================================== -->
+
+                <div
+                    class="workspace-summary"
+                    id="workspace-summary"
+                    aria-live="polite"
+                >
+                </div>
+
+
+                <!-- ==================================
+                     OUTPUT FILE NAME
+                =================================== -->
+
+                <div
+                    class="output-file-panel"
+                    id="output-file-panel"
+                >
+
+                    <label
+                        for="output-file-name"
+                        class="output-file-label"
+                    >
+                        Output file name
+                    </label>
+
+                    <div class="output-file-control">
+
+                        <input
+                            type="text"
+                            id="output-file-name"
+                            class="output-file-input"
+                            value="DocsFusion-Merged"
+                            autocomplete="off"
+                            aria-label="Output PDF file name"
+                        >
+
+                        <span
+                            class="output-file-extension"
+                            aria-hidden="true"
+                        >
+                            .pdf
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ==================================
+                     WORKSPACE ACTIONS
+                =================================== -->
+
+                <div
+                    class="workspace-actions"
+                    id="workspace-actions"
+                >
+
+                    <button
+                        type="button"
+                        class="merge-pdfs-button"
+                        id="merge-pdfs-button"
+                    >
+                        Merge PDFs
+                    </button>
+
+                    <button
+                        type="button"
+                        class="clear-all-button"
+                        id="clear-all-button"
+                    >
+                        Clear All
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ======================================
+             SEO / TOOL INFORMATION
+        ======================================= -->
+
+        <section class="tool-content">
+
+            <div class="tool-content-container">
+
+
+                <h2>
+                    How to merge PDF files
+                </h2>
+
+                <p>
+                    Upload your PDF files, arrange them in the
+                    order you want, and select Merge PDFs.
+                    DocsFusion combines the pages into one PDF
+                    that you can download.
+                </p>
+
+
+                <h2>
+                    Why use DocsFusion to merge PDFs?
+                </h2>
+
+                <p>
+                    DocsFusion is designed to process supported
+                    PDF operations directly in your browser,
+                    helping you work with documents quickly
+                    without unnecessary steps.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ==========================================
+         FOOTER
+    =========================================== -->
+
+    <footer>
+    </footer>
+
+
+    <!-- ==========================================
+         MERGE PDF SCRIPT
+    =========================================== -->
+
+    <script
+        type="module"
+        src="../scripts/merge-pdf.js"
+    ></script>
+
+</body>
+
+</html>
