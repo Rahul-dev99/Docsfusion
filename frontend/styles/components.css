@@ -1523,3 +1523,157 @@
     }
 
 }
+/* ==========================================
+   ROTATE PDF
+========================================== */
+
+.rotate-pdf-panel {
+    display: none;
+
+    margin-top: 16px;
+
+    padding: 18px;
+
+    border: 1px solid #E2E8F0;
+
+    border-radius: 12px;
+
+    background: #F8FAFC;
+}
+
+.rotate-pdf-panel.is-visible {
+    display: block;
+}
+
+.rotate-pdf-title {
+    margin-bottom: 14px;
+
+    color: #0F172A;
+
+    font-size: 16px;
+
+    font-weight: 700;
+}
+
+.rotate-pdf-controls {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 16px;
+}
+
+.rotate-control-group {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+.rotate-page-selection[hidden] {
+    display: none;
+}
+
+.rotate-control-group label {
+    color: #475569;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+.rotate-select,
+.rotate-page-input {
+    width: 100%;
+
+    min-height: 42px;
+
+    padding: 0 12px;
+
+    border: 1px solid #CBD5E1;
+
+    border-radius: 8px;
+
+    background: #FFFFFF;
+
+    color: #0F172A;
+
+    font: inherit;
+}
+
+.rotate-select:focus,
+.rotate-page-input:focus {
+    outline: 3px solid rgba(37, 99, 235, 0.18);
+
+    border-color: #2563EB;
+}
+
+.rotate-page-selection {
+    grid-column: 1 / -1;
+}
+
+.rotate-help {
+    margin: 0;
+
+    color: #64748B;
+
+    font-size: 12px;
+
+    line-height: 1.4;
+}
+
+.rotate-pdf-button {
+    min-height: 42px;
+
+    padding: 0 20px;
+
+    border: 1px solid #2563EB;
+
+    border-radius: 8px;
+
+    background: #2563EB;
+
+    color: #FFFFFF;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.1s ease;
+}
+
+.rotate-pdf-button:hover {
+    background: #1D4ED8;
+
+    border-color: #1D4ED8;
+}
+
+.rotate-pdf-button:active {
+    transform: translateY(1px);
+}
+
+.rotate-pdf-button:disabled {
+    opacity: 0.65;
+
+    cursor: wait;
+}
+@media (max-width: 600px) {
+
+    .rotate-pdf-controls {
+        grid-template-columns: 1fr;
+    }
+
+    .rotate-page-selection {
+        grid-column: auto;
+    }
+
+}

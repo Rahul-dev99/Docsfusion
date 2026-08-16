@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Rotate PDF Online – Rotate PDF Pages | DocsFusion
+    </title>
+
+    <meta
+        name="description"
+        content="Rotate PDF pages online with DocsFusion. Rotate all pages or selected PDF pages by 90 or 180 degrees directly in your browser."
+    >
+
+    <link
+        rel="stylesheet"
+        href="../styles/main.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../styles/layout.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../styles/components.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../styles/responsive.css"
+    >
+
+</head>
+
+<body>
+
+    <!-- ==========================================
+         HEADER
+    =========================================== -->
+
+    <header class="header">
+
+        <a
+            href="../"
+            class="logo"
+            aria-label="DocsFusion home"
+        >
+            📄 DocsFusion
+        </a>
+
+        <button
+            type="button"
+            class="mobile-menu-button"
+            id="mobile-menu-button"
+            aria-label="Open navigation menu"
+            aria-expanded="false"
+            aria-controls="main-navigation"
+        >
+            ☰
+        </button>
+
+        <nav
+            class="navigation"
+            id="main-navigation"
+        >
+
+            <a href="../">
+                Home
+            </a>
+
+            <a href="../#tools">
+                Tools
+            </a>
+
+            <a href="../#pricing">
+                Pricing
+            </a>
+
+            <a href="../#about">
+                About
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- ==========================================
+         PDF TOOL NAVIGATION
+    =========================================== -->
+
+    <nav
+        class="pdf-tool-tabs"
+        aria-label="PDF tools"
+    >
+        <div class="pdf-tool-tabs-container">
+
+            <a
+                href="../merge-pdf/"
+                class="pdf-tool-tab"
+            >
+                Merge PDF
+            </a>
+
+            <a
+                href="../split-pdf/"
+                class="pdf-tool-tab"
+            >
+                Split PDF
+            </a>
+
+            <a
+                href="../extract-pdf-pages/"
+                class="pdf-tool-tab"
+            >
+                Extract Pages
+            </a>
+
+            <a
+                href="../rotate-pdf/"
+                class="pdf-tool-tab is-active"
+                aria-current="page"
+            >
+                Rotate PDF
+            </a>
+
+        </div>
+    </nav>
+
+
+    <main>
+
+
+        <!-- ======================================
+             ROTATE PDF HERO
+        ======================================= -->
+
+        <section class="hero">
+
+            <h1>
+                Rotate PDF Online
+            </h1>
+
+            <p>
+                Rotate all pages or selected pages in a PDF
+                and download the updated document.
+            </p>
+
+        </section>
+
+
+        <!-- ======================================
+             ROTATE PDF WORKSPACE
+        ======================================= -->
+
+        <section
+            class="upload-section"
+            aria-labelledby="rotate-upload-title"
+        >
+
+            <div class="upload-container">
+
+
+                <!-- ==================================
+                     UPLOAD HEADER
+                =================================== -->
+
+                <div class="upload-header">
+
+                    <h2 id="rotate-upload-title">
+                        Upload one PDF to rotate
+                    </h2>
+
+                    <p>
+                        Upload a single PDF and choose which
+                        pages you want to rotate.
+                    </p>
+
+                </div>
+
+
+                <!-- ==================================
+                     DROPZONE
+                =================================== -->
+
+                <div
+                    class="upload-dropzone"
+                    id="upload-dropzone"
+                    tabindex="0"
+                    role="button"
+                    aria-label="Upload one PDF file"
+                >
+
+                    <div
+                        class="upload-icon"
+                        aria-hidden="true"
+                    >
+                        ↑
+                    </div>
+
+                    <h3>
+                        Drag &amp; drop your PDF file here
+                    </h3>
+
+                    <p>
+                        or
+                    </p>
+
+                    <button
+                        type="button"
+                        class="upload-button"
+                        id="browse-files-button"
+                    >
+                        Browse File
+                    </button>
+
+                    <p
+                        class="upload-supported"
+                        id="upload-supported"
+                    >
+                        PDF files only
+                    </p>
+
+                    <input
+                        type="file"
+                        id="file-input"
+                        class="file-input"
+                        accept=".pdf"
+                    >
+
+                </div>
+
+
+                <!-- ==================================
+                     NOTIFICATION
+                =================================== -->
+
+                <div
+                    class="notification"
+                    id="notification"
+                    role="status"
+                    aria-live="polite"
+                    aria-atomic="true"
+                >
+                </div>
+
+
+                <!-- ==================================
+                     SELECTED FILE
+                =================================== -->
+
+                <div
+                    class="selected-files"
+                    id="selected-files"
+                    aria-label="Selected file"
+                >
+                </div>
+
+
+                <!-- ==================================
+                     WORKSPACE SUMMARY
+                =================================== -->
+
+                <div
+                    class="workspace-summary"
+                    id="workspace-summary"
+                    aria-live="polite"
+                >
+                </div>
+
+
+                <!-- ==================================
+                     ROTATE CONTROLS
+                =================================== -->
+
+                <div
+                    class="rotate-pdf-panel"
+                    id="rotate-pdf-panel"
+                >
+
+                    <div class="rotate-pdf-title">
+                        Rotate PDF Pages
+                    </div>
+
+                    <div class="rotate-pdf-controls">
+
+
+                        <!-- PAGE SELECTION -->
+
+                        <div class="rotate-control-group">
+
+                            <label
+                                for="rotate-page-mode"
+                            >
+                                Pages to rotate
+                            </label>
+
+                            <select
+                                id="rotate-page-mode"
+                                class="rotate-select"
+                            >
+
+                                <option value="all">
+                                    All pages
+                                </option>
+
+                                <option value="custom">
+                                    Selected pages
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- CUSTOM PAGE INPUT -->
+
+                        <div
+                            class="rotate-control-group rotate-page-selection"
+                            id="rotate-page-selection"
+                            hidden
+                        >
+
+                            <label
+                                for="rotate-page-ranges"
+                            >
+                                Page numbers
+                            </label>
+
+                            <input
+                                type="text"
+                                id="rotate-page-ranges"
+                                class="rotate-page-input"
+                                placeholder="1, 3, 5-7"
+                                autocomplete="off"
+                            >
+
+                            <p class="rotate-help">
+                                Example: 1, 3, 5-7
+                            </p>
+
+                        </div>
+
+
+                        <!-- ROTATION -->
+
+                        <div class="rotate-control-group">
+
+                            <label
+                                for="rotation-angle"
+                            >
+                                Rotation
+                            </label>
+
+                            <select
+                                id="rotation-angle"
+                                class="rotate-select"
+                            >
+
+                                <option value="90">
+                                    90° clockwise
+                                </option>
+
+                                <option value="-90">
+                                    90° counter-clockwise
+                                </option>
+
+                                <option value="180">
+                                    180°
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ==================================
+                     OUTPUT FILE NAME
+                =================================== -->
+
+                <div
+                    class="output-file-panel"
+                    id="output-file-panel"
+                >
+
+                    <label
+                        for="output-file-name"
+                        class="output-file-label"
+                    >
+                        Output file name
+                    </label>
+
+                    <div class="output-file-control">
+
+                        <input
+                            type="text"
+                            id="output-file-name"
+                            class="output-file-input"
+                            value="DocsFusion-Rotated"
+                            autocomplete="off"
+                            aria-label="Rotated PDF output file name"
+                        >
+
+                        <span
+                            class="output-file-extension"
+                            aria-hidden="true"
+                        >
+                            .pdf
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ==================================
+                     WORKSPACE ACTIONS
+                =================================== -->
+
+                <div
+                    class="workspace-actions"
+                    id="workspace-actions"
+                >
+
+                    <button
+                        type="button"
+                        class="rotate-pdf-button"
+                        id="rotate-pdf-button"
+                    >
+                        Rotate PDF
+                    </button>
+
+                    <button
+                        type="button"
+                        class="clear-all-button"
+                        id="clear-all-button"
+                    >
+                        Clear All
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ======================================
+             SEO / TOOL INFORMATION
+        ======================================= -->
+
+        <section class="tool-content">
+
+            <div class="tool-content-container">
+
+                <h2>
+                    How to rotate PDF pages
+                </h2>
+
+                <p>
+                    Upload one PDF, choose whether to rotate all
+                    pages or only selected pages, select the
+                    rotation angle, and click Rotate PDF.
+                    DocsFusion creates a new PDF with the
+                    selected pages rotated.
+                </p>
+
+
+                <h2>
+                    Rotate specific PDF pages
+                </h2>
+
+                <p>
+                    You can rotate the entire PDF or enter
+                    individual pages and page ranges such as
+                    1, 3, 5-7. This is useful when only some
+                    pages are scanned or displayed in the
+                    wrong orientation.
+                </p>
+
+
+                <h2>
+                    Rotate PDF pages clockwise or counter-clockwise
+                </h2>
+
+                <p>
+                    DocsFusion supports 90-degree clockwise,
+                    90-degree counter-clockwise, and 180-degree
+                    page rotation.
+                </p>
+
+
+                <h2>
+                    Why use DocsFusion to rotate PDFs?
+                </h2>
+
+                <p>
+                    DocsFusion is designed to perform supported
+                    PDF operations directly in your browser,
+                    helping you correct page orientation quickly
+                    while keeping the workflow simple.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ==========================================
+         FOOTER
+    =========================================== -->
+
+    <footer>
+    </footer>
+
+
+    <!-- ==========================================
+         ROTATE PDF SCRIPT
+    =========================================== -->
+
+    <script
+        type="module"
+        src="../scripts/rotate-pdf.js"
+    ></script>
+
+</body>
+
+</html>
