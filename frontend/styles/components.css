@@ -1734,6 +1734,11 @@
     --tool-accent-hover: #C2410C;
     --tool-accent-soft: #FFEDD5;
 }
+.tool-page--delete {
+    --tool-accent: #DC2626;
+    --tool-accent-hover: #B91C1C;
+    --tool-accent-soft: #FEE2E2;
+}
 
 /* ==========================================
    TOOL PAGE ACCENT COMPONENTS
@@ -2188,6 +2193,130 @@
         grid-column: auto;
     }
 
+}
+/* ==========================================
+   DELETE PDF PAGES
+========================================== */
+
+.delete-pages-panel {
+    display: none;
+
+    margin-top: 16px;
+
+    padding: 18px;
+
+    border: 1px solid #E2E8F0;
+
+    border-radius: 12px;
+
+    background: #F8FAFC;
+}
+
+.delete-pages-panel.is-visible {
+    display: block;
+}
+
+.delete-pages-title {
+    margin-bottom: 8px;
+
+    color: #0F172A;
+
+    font-size: 16px;
+
+    font-weight: 700;
+}
+
+.delete-pages-help {
+    margin: 0 0 14px;
+
+    color: #64748B;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+.delete-pages-controls {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+.delete-pages-controls label {
+    color: #475569;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+.delete-pages-controls input {
+    width: 100%;
+
+    min-height: 42px;
+
+    padding: 0 12px;
+
+    border: 1px solid #CBD5E1;
+
+    border-radius: 8px;
+
+    background: #FFFFFF;
+
+    color: #0F172A;
+
+    font: inherit;
+}
+
+.delete-pages-controls input:focus {
+    outline: 3px solid var(--tool-accent-soft);
+
+    border-color: var(--tool-accent);
+}
+
+.delete-pages-button {
+    min-height: 42px;
+
+    padding: 0 20px;
+
+    border: 1px solid var(--tool-accent);
+
+    border-radius: 8px;
+
+    background: var(--tool-accent);
+
+    color: #FFFFFF;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.1s ease;
+}
+
+.delete-pages-button:hover {
+    background: var(--tool-accent-hover);
+
+    border-color: var(--tool-accent-hover);
+}
+
+.delete-pages-button:active {
+    transform: translateY(1px);
+}
+
+.delete-pages-button:disabled {
+    opacity: 0.65;
+
+    cursor: wait;
 }
 /* ==========================================
    HOMEPAGE HERO

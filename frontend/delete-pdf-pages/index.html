@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Delete PDF Pages Online – Remove Pages from PDF | DocsFusion
+    </title>
+
+    <meta
+        name="description"
+        content="Delete unwanted pages from a PDF online with DocsFusion. Remove individual pages or page ranges and download the updated PDF directly in your browser."
+    >
+
+    <link
+        rel="stylesheet"
+        href="../styles/main.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../styles/layout.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../styles/components.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../styles/responsive.css"
+    >
+
+</head>
+
+<body class="tool-page tool-page--delete">
+
+    <!-- ==========================================
+         HEADER
+    =========================================== -->
+
+    <header class="header">
+
+        <a
+            href="../"
+            class="logo"
+            aria-label="DocsFusion home"
+        >
+            📄 DocsFusion
+        </a>
+
+        <button
+            type="button"
+            class="mobile-menu-button"
+            id="mobile-menu-button"
+            aria-label="Open navigation menu"
+            aria-expanded="false"
+            aria-controls="main-navigation"
+        >
+            ☰
+        </button>
+
+        <nav
+            class="navigation"
+            id="main-navigation"
+        >
+
+            <a href="../">
+                Home
+            </a>
+
+            <a href="../#tools">
+                Tools
+            </a>
+
+            <a href="../#pricing">
+                Pricing
+            </a>
+
+            <a href="../#about">
+                About
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- ==========================================
+         PDF TOOL NAVIGATION
+    =========================================== -->
+
+    <nav
+        class="pdf-tool-tabs"
+        aria-label="PDF tools"
+    >
+        <div class="pdf-tool-tabs-container">
+
+            <a
+                href="../merge-pdf/"
+                class="pdf-tool-tab"
+            >
+                Merge PDF
+            </a>
+
+            <a
+                href="../split-pdf/"
+                class="pdf-tool-tab"
+            >
+                Split PDF
+            </a>
+
+            <a
+                href="../extract-pdf-pages/"
+                class="pdf-tool-tab"
+            >
+                Extract Pages
+            </a>
+
+            <a
+                href="../rotate-pdf/"
+                class="pdf-tool-tab"
+            >
+                Rotate PDF
+            </a>
+
+            <a
+                href="../delete-pdf-pages/"
+                class="pdf-tool-tab is-active"
+                aria-current="page"
+            >
+                Delete Pages
+            </a>
+
+        </div>
+    </nav>
+
+
+    <main>
+
+        <!-- ======================================
+             HERO
+        ======================================= -->
+
+        <section class="hero">
+
+            <h1>
+                Delete PDF Pages Online
+            </h1>
+
+            <p>
+                Remove unwanted pages from a PDF and download
+                a clean updated document.
+            </p>
+
+        </section>
+
+
+        <!-- ======================================
+             WORKSPACE
+        ======================================= -->
+
+        <section
+            class="upload-section"
+            aria-labelledby="delete-upload-title"
+        >
+
+            <div class="upload-container">
+
+
+                <!-- ==================================
+                     UPLOAD HEADER
+                =================================== -->
+
+                <div class="upload-header">
+
+                    <h2 id="delete-upload-title">
+                        Upload one PDF to remove pages
+                    </h2>
+
+                    <p>
+                        Upload a single PDF and choose the pages
+                        you want to delete.
+                    </p>
+
+                </div>
+
+
+                <!-- ==================================
+                     DROPZONE
+                =================================== -->
+
+                <div
+                    class="upload-dropzone"
+                    id="upload-dropzone"
+                    tabindex="0"
+                    role="button"
+                    aria-label="Upload one PDF file"
+                >
+
+                    <div
+                        class="upload-icon"
+                        aria-hidden="true"
+                    >
+                        ↑
+                    </div>
+
+                    <h3>
+                        Drag &amp; drop your PDF file here
+                    </h3>
+
+                    <p>
+                        or
+                    </p>
+
+                    <button
+                        type="button"
+                        class="upload-button"
+                        id="browse-files-button"
+                    >
+                        Browse File
+                    </button>
+
+                    <p
+                        class="upload-supported"
+                        id="upload-supported"
+                    >
+                        PDF files only
+                    </p>
+
+                    <input
+                        type="file"
+                        id="file-input"
+                        class="file-input"
+                        accept=".pdf"
+                    >
+
+                </div>
+
+
+                <!-- ==================================
+                     NOTIFICATION
+                =================================== -->
+
+                <div
+                    class="notification"
+                    id="notification"
+                    role="status"
+                    aria-live="polite"
+                    aria-atomic="true"
+                >
+                </div>
+
+
+                <!-- ==================================
+                     SELECTED FILE
+                =================================== -->
+
+                <div
+                    class="selected-files"
+                    id="selected-files"
+                    aria-label="Selected file"
+                >
+                </div>
+
+
+                <!-- ==================================
+                     WORKSPACE SUMMARY
+                =================================== -->
+
+                <div
+                    class="workspace-summary"
+                    id="workspace-summary"
+                    aria-live="polite"
+                >
+                </div>
+
+
+                <!-- ==================================
+                     DELETE PAGE CONTROLS
+                =================================== -->
+
+                <div
+                    class="delete-pages-panel"
+                    id="delete-pages-panel"
+                >
+
+                    <div class="delete-pages-title">
+                        Pages to delete
+                    </div>
+
+                    <p class="delete-pages-help">
+                        Enter page numbers or ranges separated by commas.
+                        Example: 2, 4, 7-9
+                    </p>
+
+                    <div class="delete-pages-controls">
+
+                        <label
+                            for="delete-page-ranges"
+                        >
+                            Page numbers
+                        </label>
+
+                        <input
+                            type="text"
+                            id="delete-page-ranges"
+                            placeholder="2, 4, 7-9"
+                            autocomplete="off"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- ==================================
+                     OUTPUT FILE NAME
+                =================================== -->
+
+                <div
+                    class="output-file-panel"
+                    id="output-file-panel"
+                >
+
+                    <label
+                        for="output-file-name"
+                        class="output-file-label"
+                    >
+                        Output file name
+                    </label>
+
+                    <div class="output-file-control">
+
+                        <input
+                            type="text"
+                            id="output-file-name"
+                            class="output-file-input"
+                            value="DocsFusion-Pages-Removed"
+                            autocomplete="off"
+                            aria-label="Updated PDF output file name"
+                        >
+
+                        <span
+                            class="output-file-extension"
+                            aria-hidden="true"
+                        >
+                            .pdf
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ==================================
+                     ACTIONS
+                =================================== -->
+
+                <div
+                    class="workspace-actions"
+                    id="workspace-actions"
+                >
+
+                    <button
+                        type="button"
+                        class="delete-pages-button"
+                        id="delete-pages-button"
+                    >
+                        Delete Pages
+                    </button>
+
+                    <button
+                        type="button"
+                        class="clear-all-button"
+                        id="clear-all-button"
+                    >
+                        Clear All
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ======================================
+             SEO CONTENT
+        ======================================= -->
+
+        <section class="tool-content">
+
+            <div class="tool-content-container">
+
+                <h2>
+                    How to delete pages from a PDF
+                </h2>
+
+                <p>
+                    Upload one PDF, enter the page numbers or page
+                    ranges you want to remove, and select Delete Pages.
+                    DocsFusion creates a new PDF without those pages.
+                </p>
+
+
+                <h2>
+                    Remove individual pages or page ranges
+                </h2>
+
+                <p>
+                    You can remove individual pages such as 2 or 5,
+                    or delete several pages at once using ranges such
+                    as 7-9. Multiple selections can be combined using
+                    commas, for example 2, 4, 7-9.
+                </p>
+
+
+                <h2>
+                    Keep at least one page
+                </h2>
+
+                <p>
+                    DocsFusion prevents you from deleting every page
+                    in the document. At least one page must remain
+                    in the output PDF.
+                </p>
+
+
+                <h2>
+                    Why use DocsFusion to delete PDF pages?
+                </h2>
+
+                <p>
+                    DocsFusion is designed to perform supported PDF
+                    operations directly in your browser, helping you
+                    remove unwanted pages quickly while keeping the
+                    workflow simple.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ==========================================
+         FOOTER
+    =========================================== -->
+
+    <footer>
+    </footer>
+
+
+    <!-- ==========================================
+         DELETE PDF SCRIPT
+    =========================================== -->
+
+    <script
+        type="module"
+        src="../scripts/delete-pdf-pages.js"
+    ></script>
+
+</body>
+
+</html>
