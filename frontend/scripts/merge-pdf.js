@@ -62,15 +62,6 @@ const mobileMenuButton =
 const mainNavigation =
     document.getElementById("main-navigation");
 
-console.log(
-    "outputFilePanel:",
-    outputFilePanel
-);
-
-console.log(
-    "outputFileName:",
-    outputFileName
-);
 // ==========================================
 // APPLICATION STATE
 // ==========================================
@@ -1350,6 +1341,3 @@ if (
 renderSelectedFiles();
 
 
-console.log(
-    "Merge PDF page loaded."
-);
