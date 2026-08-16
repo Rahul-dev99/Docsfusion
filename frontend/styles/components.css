@@ -1352,6 +1352,11 @@
     --tool-soft: #FFEDD5;
 }
 
+.home-page .tool-option--delete {
+    --tool-accent: #DC2626;
+    --tool-soft: #FEE2E2;
+}
+
 
 /* ==========================================
    TOOL ICON
