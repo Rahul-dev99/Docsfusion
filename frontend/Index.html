@@ -1,99 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <!-- Basic Meta -->
+
+    <!-- ==========================================
+         BASIC META
+    =========================================== -->
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- SEO -->
-    <title>DocsFusion | One Workspace. Every Document Tool.</title>
-    <meta name="description"
-        content="DocsFusion is a modern document toolkit for merging, splitting, converting and managing PDFs, images and Office documents.">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <!-- ==========================================
+         SEO
+    =========================================== -->
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/layout.css">
-    <link rel="stylesheet" href="styles/components.css">
-    <link rel="stylesheet" href="styles/responsive.css">
+    <title>
+        DocsFusion | Online PDF and Document Tools
+    </title>
+
+    <meta
+        name="description"
+        content="Use DocsFusion to merge, split, extract and rotate PDF files online. Simple document tools designed for a fast and convenient workflow."
+    >
+
+
+    <!-- ==========================================
+         GOOGLE FONTS
+    =========================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- ==========================================
+         STYLES
+    =========================================== -->
+
+    <link
+        rel="stylesheet"
+        href="styles/main.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="styles/layout.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="styles/components.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="styles/responsive.css"
+    >
+
 </head>
 
-<body>
 
-    <!-- ==========================
+<body class="home-page">
+
+
+    <!-- ==========================================
          HEADER
-    =========================== -->
+    =========================================== -->
 
-   <header class="header">
+    <header class="header">
 
-    <a
-    href="./"
-    class="logo"
-    aria-label="DocsFusion home"
->
-    📄 DocsFusion
-</a>
-
-    <button
-        type="button"
-        class="mobile-menu-button"
-        id="mobile-menu-button"
-        aria-label="Open navigation menu"
-        aria-expanded="false"
-        aria-controls="main-navigation"
-    >
-        ☰
-    </button>
-
-    <nav
-        class="navigation"
-        id="main-navigation"
-    >
-
-        <a href="#">Home</a>
-
-        <a href="#">Tools</a>
-
-        <a href="#">Pricing</a>
-
-        <a href="#">About</a>
-
-    </nav>
-
-</header>
+        <a
+            href="./"
+            class="logo"
+            aria-label="DocsFusion home"
+        >
+            📄 DocsFusion
+        </a>
 
 
-    <!-- ==========================
+        <button
+            type="button"
+            class="mobile-menu-button"
+            id="mobile-menu-button"
+            aria-label="Open navigation menu"
+            aria-expanded="false"
+            aria-controls="main-navigation"
+        >
+            ☰
+        </button>
+
+
+        <nav
+            class="navigation"
+            id="main-navigation"
+        >
+
+            <a href="./">
+                Home
+            </a>
+
+            <a href="#tools">
+                Tools
+            </a>
+
+            <a href="#pricing">
+                Pricing
+            </a>
+
+            <a href="#about">
+                About
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- ==========================================
          MAIN
-    =========================== -->
+    =========================================== -->
 
     <main>
 
-    <section class="hero">
 
-        <h1>One Workspace.<br>Every Document Tool.</h1>
+        <!-- ======================================
+             HERO
+        ======================================= -->
 
-        <p>
+        <section class="hero">
 
-            Merge, split, convert and organize PDFs,
-            images and Office documents quickly and securely.
+            <h1>
+                One Workspace.<br>
+                Every Document Tool.
+            </h1>
 
-        </p>
+            <p>
+                Merge, split, extract, rotate and manage
+                documents with simple online tools.
+            </p>
 
-        <button class="primary-btn">
+        </section>
 
-            Upload Files
 
-        </button>
+        <!-- ======================================
+             PDF TOOLS
+        ======================================= -->
 
-    </section>
-   <section
+        <section
     class="tool-selector"
     id="tools"
     aria-labelledby="tool-selector-title"
@@ -107,267 +177,358 @@
             </h2>
 
             <p>
-                Select what you want to do with your PDF documents.
+                Select the tool you need and start working with your PDF
+                directly from its dedicated workspace.
             </p>
 
         </div>
 
-        <nav
-            class="tool-options"
-            aria-label="PDF tools"
-        >
+
+        <div class="tool-options">
+
+
+            <!-- MERGE PDF -->
 
             <a
                 href="./merge-pdf/"
-                class="tool-option"
+                class="tool-option tool-option--merge"
             >
-                <span class="tool-option-title">
-                    Merge PDF
+
+                <span
+                    class="tool-option-icon"
+                    aria-hidden="true"
+                >
+                    ⇄
                 </span>
 
-                <span class="tool-option-description">
-                    Combine multiple PDFs
+                <span class="tool-option-content">
+
+                    <span class="tool-option-title">
+                        Merge PDF
+                    </span>
+
+                    <span class="tool-option-description">
+                        Combine multiple PDF files into one document
+                        and arrange them in the exact order you want.
+                    </span>
+
+                    <span class="tool-option-divider"></span>
+
+                    <span class="tool-option-action">
+                        Merge PDF
+                        <span aria-hidden="true">→</span>
+                    </span>
+
                 </span>
+
             </a>
 
+
+            <!-- SPLIT PDF -->
 
             <a
                 href="./split-pdf/"
-                class="tool-option"
+                class="tool-option tool-option--split"
             >
-                <span class="tool-option-title">
-                    Split PDF
+
+                <span
+                    class="tool-option-icon"
+                    aria-hidden="true"
+                >
+                    ✂
                 </span>
 
-                <span class="tool-option-description">
-                    Create separate PDF files
+                <span class="tool-option-content">
+
+                    <span class="tool-option-title">
+                        Split PDF
+                    </span>
+
+                    <span class="tool-option-description">
+                        Separate one PDF into multiple files using
+                        page ranges or individual pages that you choose.
+                    </span>
+
+                    <span class="tool-option-divider"></span>
+
+                    <span class="tool-option-action">
+                        Split PDF
+                        <span aria-hidden="true">→</span>
+                    </span>
+
                 </span>
+
             </a>
 
+
+            <!-- EXTRACT PAGES -->
 
             <a
                 href="./extract-pdf-pages/"
-                class="tool-option"
+                class="tool-option tool-option--extract"
             >
-                <span class="tool-option-title">
-                    Extract Pages
+
+                <span
+                    class="tool-option-icon"
+                    aria-hidden="true"
+                >
+                    ▤
                 </span>
 
-                <span class="tool-option-description">
-                    Save selected PDF pages
+                <span class="tool-option-content">
+
+                    <span class="tool-option-title">
+                        Extract Pages
+                    </span>
+
+                    <span class="tool-option-description">
+                        Choose the pages you need from a PDF and save
+                        them together as a separate document.
+                    </span>
+
+                    <span class="tool-option-divider"></span>
+
+                    <span class="tool-option-action">
+                        Extract Pages
+                        <span aria-hidden="true">→</span>
+                    </span>
+
                 </span>
+
             </a>
 
-        </nav>
 
-    </div>
-</section>
-<section class="upload-section" aria-labelledby="upload-title">
+            <!-- ROTATE PDF -->
 
-    <div class="upload-container">
-
-        <div class="upload-header">
-
-    <h2 id="upload-title">
-        Upload your documents
-    </h2>
-
-    <p id="upload-description">
-        Drag and drop your files here, or browse from your device.
-    </p>
-
-</div>
-        <div
-            class="upload-dropzone"
-            id="upload-dropzone"
-            tabindex="0"
-            role="button"
-            aria-label="Upload documents"
-        >
-
-            <div class="upload-icon" aria-hidden="true">
-                ↑
-            </div>
-
-            <h3>
-               Drag &amp; drop your files here
-            </h3>
-
-            <p>
-                or
-            </p>
-
-            <button
-                type="button"
-                class="upload-button"
-                id="browse-files-button"
+            <a
+                href="./rotate-pdf/"
+                class="tool-option tool-option--rotate"
             >
-                Browse Files
-            </button>
 
-            <p
-                class="upload-supported"
-                 id="upload-supported"
->
-             PDF files only
-            </p>
+                <span
+                    class="tool-option-icon"
+                    aria-hidden="true"
+                >
+                    ↻
+                </span>
 
-            <input
-                type="file"
-                id="file-input"
-                class="file-input"
-                multiple
-                accept=".pdf,.jpg,.jpeg,.png,.doc,.docx,.xls,.xlsx,.ppt,.pptx"
-            >
+                <span class="tool-option-content">
+
+                    <span class="tool-option-title">
+                        Rotate PDF
+                    </span>
+
+                    <span class="tool-option-description">
+                        Correct page orientation by rotating all pages
+                        or only selected PDF pages by 90° or 180°.
+                    </span>
+
+                    <span class="tool-option-divider"></span>
+
+                    <span class="tool-option-action">
+                        Rotate PDF
+                        <span aria-hidden="true">→</span>
+                    </span>
+
+                </span>
+
+            </a>
 
         </div>
 
-<div
-    class="notification"
-    id="notification"
-    role="status"
-    aria-live="polite"
-    aria-atomic="true"
->
-</div>
-
-<div
-    class="selected-files"
-    id="selected-files"
-    aria-label="Selected files"
-></div>
-
-<div
-    class="workspace-summary"
-    id="workspace-summary"
-    aria-live="polite"
->
-</div>
-<div
-    class="extract-pages-panel"
-    id="extract-pages-panel"
->
-    <div class="extract-pages-title">
-        Extract PDF Pages
     </div>
-
-    <div class="extract-pages-controls">
-
-        <label
-            for="extract-start-page"
-        >
-            From
-        </label>
-
-        <input
-            type="number"
-            id="extract-start-page"
-            min="1"
-            value="1"
-        >
-
-        <span aria-hidden="true">
-            -
-        </span>
-
-        <label
-            for="extract-end-page"
-        >
-            To
-        </label>
-
-        <input
-            type="number"
-            id="extract-end-page"
-            min="1"
-            value="1"
-        >
-
-        <button
-            type="button"
-            class="extract-pages-button"
-            id="extract-pages-button"
-        >
-            Extract Pages
-        </button>
-
-    </div>
-</div>
-<div
-    class="split-pdf-panel"
-    id="split-pdf-panel"
->
-    <div class="split-pdf-title">
-        Split PDF
-    </div>
-
-    <p class="split-pdf-help">
-        Enter page ranges separated by commas.
-        Example: 1-3, 4-6, 7-10
-    </p>
-
-    <div class="split-pdf-controls">
-
-        <label
-            for="split-page-ranges"
-        >
-            Page ranges
-        </label>
-
-        <input
-            type="text"
-            id="split-page-ranges"
-            placeholder="1-3, 4-6"
-            autocomplete="off"
-        >
-
-        <button
-            type="button"
-            class="split-pdf-button"
-            id="split-pdf-button"
-        >
-            Split PDF
-        </button>
-
-    </div>
-</div>
-<div
-    class="workspace-actions"
-    id="workspace-actions"
->
-    <button
-        type="button"
-        class="merge-pdfs-button"
-        id="merge-pdfs-button"
-    >
-        Merge PDFs
-    </button>
-
-    <button
-        type="button"
-        class="clear-all-button"
-        id="clear-all-button"
-    >
-        Clear All
-    </button>
-</div>
-
-    </div>
-
 </section>
-</main>
+
+<section
+    class="home-benefits"
+    aria-label="DocsFusion benefits"
+>
+    <div class="home-benefits-container">
 
 
-    <!-- ==========================
+        <div class="home-benefit">
+
+            <span
+                class="home-benefit-icon"
+                aria-hidden="true"
+            >
+                ◇
+            </span>
+
+            <span class="home-benefit-content">
+
+                <strong>
+                    Browser Processing
+                </strong>
+
+                <span>
+                    Supported PDF tools process files directly in your browser.
+                </span>
+
+            </span>
+
+        </div>
+
+
+        <div class="home-benefit">
+
+            <span
+                class="home-benefit-icon"
+                aria-hidden="true"
+            >
+                ⚡
+            </span>
+
+            <span class="home-benefit-content">
+
+                <strong>
+                    Fast &amp; Simple
+                </strong>
+
+                <span>
+                    Complete common PDF tasks with a straightforward workflow.
+                </span>
+
+            </span>
+
+        </div>
+
+
+        <div class="home-benefit">
+
+            <span
+                class="home-benefit-icon"
+                aria-hidden="true"
+            >
+                ▣
+            </span>
+
+            <span class="home-benefit-content">
+
+                <strong>
+                    Works Anywhere
+                </strong>
+
+                <span>
+                    Use DocsFusion from modern desktop, tablet and mobile browsers.
+                </span>
+
+            </span>
+
+        </div>
+
+
+        <div class="home-benefit">
+
+            <span
+                class="home-benefit-icon"
+                aria-hidden="true"
+            >
+                📄
+            </span>
+
+            <span class="home-benefit-content">
+
+                <strong>
+                    Up to 50 MB
+                </strong>
+
+                <span>
+                    Work with supported PDF files up to 50 MB each.
+                </span>
+
+            </span>
+
+        </div>
+
+
+    </div>
+</section>
+
+        <!-- ======================================
+             FUTURE HOMEPAGE SECTIONS
+        ======================================= -->
+
+        <!--
+            Later we can add sections such as:
+
+            - More PDF Tools
+            - Document Conversion
+            - Image Tools
+            - Why DocsFusion
+            - How DocsFusion Works
+            - FAQ
+            - Pricing
+            - About
+
+            The header "Tools" navigation is intentionally
+            retained for future expansion of the website.
+        -->
+
+
+    </main>
+
+
+    <!-- ==========================================
          FOOTER
-    =========================== -->
+    =========================================== -->
 
     <footer>
 
     </footer>
 
-    <!-- JavaScript -->
-    <script type="module" src="scripts/app.js"></script>
+
+    <!-- ==========================================
+         HOMEPAGE MOBILE NAVIGATION
+    =========================================== -->
+
+    <script>
+
+        const mobileMenuButton =
+            document.getElementById(
+                "mobile-menu-button"
+            );
+
+        const mainNavigation =
+            document.getElementById(
+                "main-navigation"
+            );
+
+
+        if (
+            mobileMenuButton &&
+            mainNavigation
+        ) {
+
+            mobileMenuButton.addEventListener(
+                "click",
+                () => {
+
+                    const isOpen =
+                        mobileMenuButton
+                            .getAttribute(
+                                "aria-expanded"
+                            ) === "true";
+
+
+                    mobileMenuButton.setAttribute(
+                        "aria-expanded",
+                        String(!isOpen)
+                    );
+
+
+                    mainNavigation.classList.toggle(
+                        "is-open"
+                    );
+
+                }
+            );
+
+        }
+
+    </script>
+
+
 </body>
 
 </html>

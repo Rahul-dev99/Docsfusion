@@ -1182,106 +1182,415 @@
 /* ==========================================
    PDF TOOL SELECTOR
 ========================================== */
+/* ==========================================
+   HOMEPAGE PDF TOOL SELECTOR
+========================================== */
 
-.tool-selector {
-    padding: 10px 20px 28px;
+.home-page .tool-selector {
+    padding: 20px 32px 28px;
 }
 
-.tool-selector-container {
-    width: min(100%, 920px);
+
+.home-page .tool-selector-container {
+    width: min(100%, 1360px);
+
     margin: 0 auto;
 }
 
-.tool-selector-header {
-    margin-bottom: 16px;
+
+.home-page .tool-selector-header {
+    margin-bottom: 26px;
+
     text-align: center;
 }
 
-.tool-selector-header h2 {
-    margin: 0 0 6px;
+
+.home-page .tool-selector-header h2 {
+    margin: 0 0 8px;
+
     color: #0F172A;
-    font-size: 22px;
+
+    font-size: 28px;
+
     font-weight: 700;
 }
 
-.tool-selector-header p {
-    margin: 0;
+
+.home-page .tool-selector-header p {
+    max-width: 760px;
+
+    margin: 0 auto;
+
     color: #64748B;
-    font-size: 14px;
+
+    font-size: 15px;
+
+    line-height: 1.6;
 }
 
-.tool-options {
+
+/* ==========================================
+   TOOL CARD GRID
+========================================== */
+
+.home-page .tool-options {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 22px;
 }
 
-.tool-option {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 5px;
 
-    min-height: 92px;
-    padding: 16px;
+/* ==========================================
+   TOOL CARD
+========================================== */
+
+.home-page .tool-option {
+    --tool-accent: #2563EB;
+    --tool-soft: #EFF6FF;
+
+    position: relative;
+
+    display: flex;
+
+    flex-direction: column;
+
+    min-width: 0;
+
+    min-height: 350px;
+
+    padding: 24px;
 
     border: 1px solid #E2E8F0;
-    border-radius: 12px;
+
+    border-radius: 16px;
 
     background: #FFFFFF;
 
+    color: #0F172A;
+
     text-align: left;
 
-    cursor: pointer;
+    text-decoration: none;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 6px 18px rgba(15, 23, 42, 0.06);
 
     transition:
+        transform 0.2s ease,
         border-color 0.2s ease,
-        background-color 0.2s ease,
-        box-shadow 0.2s ease,
-        transform 0.1s ease;
+        box-shadow 0.2s ease;
 }
 
-.tool-option:hover {
-    border-color: #93C5FD;
-    background: #F8FAFC;
-    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+
+/* Accent bar */
+
+.home-page .tool-option::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    left: 0;
+
+    right: 0;
+
+    height: 4px;
+
+    background: var(--tool-accent);
 }
 
-.tool-option:active {
-    transform: translateY(1px);
+
+.home-page .tool-option:hover {
+    border-color: var(--tool-accent);
+
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 14px 30px rgba(15, 23, 42, 0.11);
+
+    text-decoration: none;
 }
 
-.tool-option-title {
-    color: #0F172A;
+
+.home-page .tool-option:focus-visible {
+    outline: 3px solid rgba(37, 99, 235, 0.25);
+
+    outline-offset: 4px;
+}
+
+
+/* ==========================================
+   TOOL COLORS
+========================================== */
+
+.home-page .tool-option--merge {
+    --tool-accent: #6D28D9;
+    --tool-soft: #F3E8FF;
+}
+
+
+.home-page .tool-option--split {
+    --tool-accent: #2563EB;
+    --tool-soft: #DBEAFE;
+}
+
+
+.home-page .tool-option--extract {
+    --tool-accent: #059669;
+    --tool-soft: #D1FAE5;
+}
+
+
+.home-page .tool-option--rotate {
+    --tool-accent: #EA580C;
+    --tool-soft: #FFEDD5;
+}
+
+
+/* ==========================================
+   TOOL ICON
+========================================== */
+
+.home-page .tool-option-icon {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 58px;
+
+    height: 58px;
+
+    margin-bottom: 18px;
+
+    border-radius: 14px;
+
+    background: var(--tool-soft);
+
+    color: var(--tool-accent);
+
+    font-size: 30px;
+
+    font-weight: 700;
+
+    line-height: 1;
+
+    text-decoration: none;
+}
+
+
+/* ==========================================
+   TOOL CONTENT
+========================================== */
+
+.home-page .tool-option-content {
+    display: flex;
+
+    flex: 1;
+
+    flex-direction: column;
+
+    min-width: 0;
+}
+
+
+.home-page .tool-option-title {
+    margin-bottom: 10px;
+
+    color: var(--tool-accent);
+
+    font-size: 23px;
+
+    font-weight: 700;
+
+    line-height: 1.25;
+
+    text-decoration: none;
+}
+
+
+.home-page .tool-option-description {
+    color: #334155;
+
     font-size: 15px;
+
+    line-height: 1.65;
+
+    text-decoration: none;
+}
+
+
+/* ==========================================
+   CARD DIVIDER
+========================================== */
+
+.home-page .tool-option-divider {
+    display: block;
+
+    width: 100%;
+
+    height: 1px;
+
+    margin-top: auto;
+
+    margin-bottom: 18px;
+
+    background: #E2E8F0;
+}
+
+
+/* ==========================================
+   CARD ACTION
+========================================== */
+
+.home-page .tool-option-action {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: var(--tool-accent);
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    text-decoration: none;
+}
+
+
+.home-page .tool-option:hover
+.tool-option-action {
+    gap: 12px;
+}
+
+
+/* ==========================================
+   PREVENT LINK UNDERLINES
+========================================== */
+
+.home-page .tool-option,
+.home-page .tool-option:hover,
+.home-page .tool-option:visited,
+.home-page .tool-option span {
+    text-decoration: none;
+}
+
+/* ==========================================
+   HOMEPAGE BENEFITS
+========================================== */
+
+.home-benefits {
+    padding: 0 32px 54px;
+}
+
+
+.home-benefits-container {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 0;
+
+    width: min(100%, 1360px);
+
+    margin: 0 auto;
+
+    padding: 22px;
+
+    border: 1px solid #E8EAF3;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #FAF8FF,
+            #F8FAFF
+        );
+}
+
+
+.home-benefit {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    min-width: 0;
+
+    padding: 4px 22px;
+
+    border-right: 1px solid #E2E8F0;
+}
+
+
+.home-benefit:last-child {
+    border-right: 0;
+}
+
+
+.home-benefit-icon {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex: 0 0 auto;
+
+    width: 48px;
+
+    height: 48px;
+
+    border-radius: 50%;
+
+    background: #EEF2FF;
+
+    color: #4F46E5;
+
+    font-size: 23px;
+
     font-weight: 700;
 }
 
-.tool-option-description {
+
+.home-benefit-content {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+
+    min-width: 0;
+}
+
+
+.home-benefit-content strong {
+    color: #0F172A;
+
+    font-size: 14px;
+
+    font-weight: 700;
+}
+
+
+.home-benefit-content span {
     color: #64748B;
-    font-size: 13px;
-    line-height: 1.4;
-}
 
-.tool-option.is-active {
-    border-color: #2563EB;
-    background: #EFF6FF;
-    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.08);
-}
+    font-size: 12px;
 
-.tool-option.is-active .tool-option-title {
-    color: #1D4ED8;
-}
-@media (max-width: 700px) {
-
-    .tool-options {
-        grid-template-columns: 1fr;
-    }
-
-    .tool-option {
-        min-height: 78px;
-    }
-
+    line-height: 1.45;
 }
 /* ==========================================
    TOOL PAGE CONTENT
@@ -1397,6 +1706,152 @@
 
     font-weight: 600;
 }
+
+/* ==========================================
+   TOOL PAGE COLOR SYSTEM
+========================================== */
+
+.tool-page--merge {
+    --tool-accent: #6D28D9;
+    --tool-accent-hover: #5B21B6;
+    --tool-accent-soft: #F3E8FF;
+}
+
+.tool-page--split {
+    --tool-accent: #2563EB;
+    --tool-accent-hover: #1D4ED8;
+    --tool-accent-soft: #DBEAFE;
+}
+
+.tool-page--extract {
+    --tool-accent: #059669;
+    --tool-accent-hover: #047857;
+    --tool-accent-soft: #D1FAE5;
+}
+
+.tool-page--rotate {
+    --tool-accent: #EA580C;
+    --tool-accent-hover: #C2410C;
+    --tool-accent-soft: #FFEDD5;
+}
+
+/* ==========================================
+   TOOL PAGE ACCENT COMPONENTS
+========================================== */
+
+
+/* ------------------------------------------
+   UPLOAD ICON
+------------------------------------------ */
+
+.tool-page .upload-icon {
+    background: var(--tool-accent-soft);
+
+    color: var(--tool-accent);
+}
+
+
+/* ------------------------------------------
+   DROPZONE HOVER
+------------------------------------------ */
+
+.tool-page .upload-dropzone:hover {
+    border-color: var(--tool-accent);
+
+    background: var(--tool-accent-soft);
+}
+
+
+/* ------------------------------------------
+   DRAG & DROP ACTIVE STATE
+------------------------------------------ */
+
+.tool-page .upload-dropzone.drag-over {
+    border-color: var(--tool-accent);
+
+    background: var(--tool-accent-soft);
+}
+
+
+/* ------------------------------------------
+   DROPZONE KEYBOARD FOCUS
+------------------------------------------ */
+
+.tool-page .upload-dropzone:focus-visible {
+    outline: 3px solid var(--tool-accent-soft);
+
+    outline-offset: 4px;
+
+    border-color: var(--tool-accent);
+}
+
+
+/* ------------------------------------------
+   BROWSE FILE BUTTON
+------------------------------------------ */
+
+.tool-page .upload-button {
+    background: var(--tool-accent);
+}
+
+
+.tool-page .upload-button:hover {
+    background: var(--tool-accent-hover);
+}
+
+
+/* ------------------------------------------
+   PRIMARY TOOL ACTION BUTTONS
+------------------------------------------ */
+
+.tool-page .merge-pdfs-button,
+.tool-page .split-pdf-button,
+.tool-page .extract-pages-button,
+.tool-page .rotate-pdf-button {
+    border-color: var(--tool-accent);
+
+    background: var(--tool-accent);
+
+    color: #FFFFFF;
+}
+
+
+.tool-page .merge-pdfs-button:hover,
+.tool-page .split-pdf-button:hover,
+.tool-page .extract-pages-button:hover,
+.tool-page .rotate-pdf-button:hover {
+    border-color: var(--tool-accent-hover);
+
+    background: var(--tool-accent-hover);
+
+    color: #FFFFFF;
+}
+
+
+/* ------------------------------------------
+   INPUT / SELECT FOCUS
+------------------------------------------ */
+
+.tool-page .extract-pages-controls input:focus,
+.tool-page .split-pdf-controls input:focus,
+.tool-page .rotate-select:focus,
+.tool-page .rotate-page-input:focus {
+    outline: 3px solid var(--tool-accent-soft);
+
+    border-color: var(--tool-accent);
+}
+
+
+/* ------------------------------------------
+   OUTPUT FILE NAME FOCUS
+------------------------------------------ */
+
+.tool-page .output-file-control:focus-within {
+    border-color: var(--tool-accent);
+
+    box-shadow:
+        0 0 0 3px var(--tool-accent-soft);
+}
 /* ==========================================
    PDF TOOL NAVIGATION
 ========================================== */
@@ -1478,22 +1933,22 @@
 }
 
 
-.pdf-tool-tab.is-active {
-    border-color: #2563EB;
+.tool-page .pdf-tool-tab.is-active {
+    border-color: var(--tool-accent);
 
-    background: #2563EB;
+    background: var(--tool-accent);
 
     color: #FFFFFF;
 
     box-shadow:
-        0 2px 6px rgba(37, 99, 235, 0.18);
+        0 2px 6px rgba(15, 23, 42, 0.12);
 }
 
 
-.pdf-tool-tab.is-active:hover {
-    background: #1D4ED8;
+.tool-page .pdf-tool-tab.is-active:hover {
+    background: var(--tool-accent-hover);
 
-    border-color: #1D4ED8;
+    border-color: var(--tool-accent-hover);
 
     color: #FFFFFF;
 }
@@ -1674,6 +2129,186 @@
 
     .rotate-page-selection {
         grid-column: auto;
+    }
+
+}
+/* ==========================================
+   HOMEPAGE HERO
+========================================== */
+
+.home-page .hero {
+    position: relative;
+
+    width: min(100% - 40px, 1460px);
+
+    max-width: none;
+
+    margin: 0 auto;
+
+    padding: 54px 24px 34px;
+
+    border-radius: 0 0 28px 28px;
+
+    background:
+        radial-gradient(
+            circle at 15% 35%,
+            rgba(99, 102, 241, 0.10),
+            transparent 24%
+        ),
+        radial-gradient(
+            circle at 85% 20%,
+            rgba(37, 99, 235, 0.08),
+            transparent 24%
+        );
+
+    overflow: hidden;
+}
+
+
+.home-page .hero h1 {
+    max-width: 760px;
+
+    margin-left: auto;
+
+    margin-right: auto;
+
+    font-size: clamp(
+        38px,
+        5vw,
+        60px
+    );
+
+    letter-spacing: -1.5px;
+}
+
+
+.home-page .hero p {
+    max-width: 670px;
+
+    margin-left: auto;
+
+    margin-right: auto;
+
+    font-size: 18px;
+}
+/* ==========================================
+   HOMEPAGE TOOL GRID
+========================================== */
+
+@media (max-width: 1100px) {
+
+    .home-page .tool-options {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+
+    .home-benefits-container {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 20px;
+    }
+
+
+    .home-benefit {
+        border-right: 0;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .home-page .hero {
+        width: 100%;
+
+        padding:
+            30px 18px
+            22px;
+
+        border-radius: 0;
+    }
+
+
+    .home-page .hero h1 {
+        font-size: 34px;
+
+        letter-spacing: -0.5px;
+    }
+
+
+    .home-page .hero p {
+        font-size: 15px;
+    }
+
+
+    .home-page .tool-selector {
+        padding:
+            18px 16px
+            24px;
+    }
+
+
+    .home-page .tool-selector-header h2 {
+        font-size: 24px;
+    }
+
+
+    .home-page .tool-options {
+        grid-template-columns: 1fr;
+
+        gap: 16px;
+    }
+
+
+    .home-page .tool-option {
+        min-height: 0;
+
+        padding: 20px;
+    }
+
+
+    .home-page .tool-option-icon {
+        width: 52px;
+
+        height: 52px;
+
+        font-size: 26px;
+    }
+
+
+    .home-page .tool-option-title {
+        font-size: 21px;
+    }
+
+
+    .home-benefits {
+        padding:
+            0 16px
+            40px;
+    }
+
+
+    .home-benefits-container {
+        grid-template-columns: 1fr;
+
+        gap: 0;
+
+        padding: 10px 18px;
+    }
+
+
+    .home-benefit {
+        padding: 16px 0;
+
+        border-bottom:
+            1px solid #E2E8F0;
+    }
+
+
+    .home-benefit:last-child {
+        border-bottom: 0;
     }
 
 }
